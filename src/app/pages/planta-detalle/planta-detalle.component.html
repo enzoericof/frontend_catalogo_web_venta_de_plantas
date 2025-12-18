@@ -1,7 +1,7 @@
 <!-- HEADER (igual al catálogo) -->
 <header class="header">
   <div class="container header-inner">
-    <h1 class="logo" routerLink="/">VIVERO</h1>
+    <a class="logo" routerLink="/">VIVERO</a>
   </div>
 </header>
 
@@ -10,13 +10,23 @@
 <section class="detalle-page">
 
   <!-- BREADCRUMB -->
- <nav class="breadcrumb" *ngIf="planta">
-  <a class="breadcrumb-back" (click)="volver()">← Catálogo</a>
-  <span class="sep">/</span>
-  <a routerLink="/">Inicio</a>
-  <span class="sep">/</span>
+<nav class="breadcrumb" *ngIf="planta">
+  <a routerLink="/">Catálogo</a>
+
+  <ng-container *ngIf="getCategoriaLabel(categoriaOrigen)">
+    <span>/</span>
+    <a
+      [routerLink]="['/']"
+      [queryParams]="{ categoria: categoriaOrigen }"
+    >
+      {{ getCategoriaLabel(categoriaOrigen) }}
+    </a>
+  </ng-container>
+
+  <span>/</span>
   <strong>{{ planta.nombre }}</strong>
 </nav>
+
 
 
 

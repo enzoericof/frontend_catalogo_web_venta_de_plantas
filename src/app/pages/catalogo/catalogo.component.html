@@ -1,8 +1,9 @@
 
 
+<!-- HEADER -->
 <header class="header">
   <div class="container header-inner">
-    <h1 class="logo">VIVERO</h1>
+    <a class="logo" routerLink="/">VIVERO</a>
   </div>
 </header>
 
@@ -16,12 +17,13 @@
   </button>
 
   <div class="actions">
-      <select #ordenSelect (change)="ordenar(ordenSelect.value)">
-        <option value="precio-asc">Precio ↑</option>
-        <option value="precio-desc">Precio ↓</option>
-      </select>
-    </div>
+    <select #ordenSelect (change)="ordenar(ordenSelect.value)">
+      <option value="precio-asc">Precio más bajo primero</option>
+      <option value="precio-desc">Precio más alto primero</option>
+    </select>
+  </div>
 </section>
+
 
 
 
@@ -32,11 +34,12 @@
 
         <article
           class="card"
-          *ngFor="let planta of plantasFiltradas; let i = index; trackBy: trackByPlanta"
+          *ngFor="let planta of plantasFiltradas"
           [routerLink]="['/plantas', planta.id]"
-          [style.animationDelay]="(i * 60) + 'ms'"
-        >
-
+          [queryParams]="categoriaSeleccionada !== 'ALL'
+            ? { categoria: categoriaSeleccionada }
+            : {}"
+>
 
         <div class="image-wrapper">
           <img

@@ -7,18 +7,18 @@ import { Observable } from 'rxjs';
 })
 export class PlantaService {
 
-  private apiUrl = 'http://localhost:8080/api/public/plantas';
+  private apiUrl = 'http://localhost:8080/api/plantas';
 
   constructor(private http: HttpClient) {}
 
-  listar(): Observable<any[]> {
-    return this.http.get<any[]>(this.apiUrl);
-  }
 
+listar() {
+  return this.http.get<any[]>(this.apiUrl);
+}
 
-  obtenerPorId(id: number) {
+obtenerPorId(id: number) {
   return this.http.get<any>(`${this.apiUrl}/${id}`);
-  }  
+}
 
 }
 

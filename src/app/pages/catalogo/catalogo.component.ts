@@ -1,7 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterModule } from '@angular/router';
+import { RouterModule, ActivatedRoute } from '@angular/router';
 import { PlantaService } from '../../core/planta.service';
+import { Router } from '@angular/router';
+
+
+
 
 @Component({
   selector: 'app-catalogo',
@@ -33,39 +37,52 @@ export class CatalogoComponent implements OnInit {
 
   // ================= INIT =================
 
-  constructor(private plantaService: PlantaService) {}
+constructor(
+  private plantaService: PlantaService,
+  private route: ActivatedRoute,
+  private router: Router
+) {}
+
 
   ngOnInit(): void {
+
+    // 1️⃣ Escuchar categoría desde la URL
+    this.route.queryParamMap.subscribe(params => {
+      this.categoriaSeleccionada = params.get('categoria') ?? 'ALL';
+      this.filtrar();
+    });
+
+    // 2️⃣ Cargar todas las plantas
     this.plantaService.listar().subscribe({
       next: data => {
         this.plantas = data;
-        this.plantasFiltradas = [...data];
+        this.filtrar();
         this.cargando = false;
       },
-      error: err => {
-        console.error('Error cargando plantas', err);
-        this.cargando = false;
-      }
+      error: () => this.cargando = false
     });
   }
 
   // ================= FILTROS =================
 
-  seleccionarCategoria(valor: string): void {
-    this.categoriaSeleccionada = valor;
+seleccionarCategoria(valor: string): void {
+  this.router.navigate([], {
+    queryParams: {
+      categoria: valor === 'ALL' ? null : valor
+    },
+    queryParamsHandling: 'merge'
+  });
+}
 
-    // 🔑 Forzamos recreación del DOM para animación fluida
-    this.plantasFiltradas = [];
 
-    setTimeout(() => {
-      if (valor === 'ALL') {
-        this.plantasFiltradas = [...this.plantas];
-      } else {
-        this.plantasFiltradas = this.plantas.filter(
-          p => p.categoria === valor
-        );
-      }
-    }, 0);
+  private filtrar(): void {
+    if (this.categoriaSeleccionada === 'ALL') {
+      this.plantasFiltradas = [...this.plantas];
+    } else {
+      this.plantasFiltradas = this.plantas.filter(
+        p => p.categoria === this.categoriaSeleccionada
+      );
+    }
   }
 
   ordenar(valor: string): void {
@@ -87,6 +104,4 @@ export class CatalogoComponent implements OnInit {
   trackByPlanta(index: number, planta: any): number {
     return planta.id;
   }
-
 }
-

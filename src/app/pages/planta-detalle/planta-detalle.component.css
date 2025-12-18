@@ -16,10 +16,17 @@
 }
 
 .logo {
+    
+  text-decoration: none;
+  color: #111;
   font-size: 22px;
   letter-spacing: 0.3em;
   font-weight: 600;
+  cursor: pointer;
+  line-height: 1;
 }
+
+
 
 /* ================= PAGE ================= */
 
@@ -188,3 +195,4 @@
     font-size: 24px;
   }
 }
+
