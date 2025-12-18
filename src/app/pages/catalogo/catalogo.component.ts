@@ -1,22 +1,23 @@
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { RouterModule } from '@angular/router';
 import { PlantaService } from '../../core/planta.service';
-import { Component, OnInit, HostListener } from '@angular/core';
-
-
-
 
 @Component({
   selector: 'app-catalogo',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, RouterModule],
   templateUrl: './catalogo.component.html',
   styleUrls: ['./catalogo.component.css']
 })
-
 export class CatalogoComponent implements OnInit {
+
+  // ================= DATA =================
 
   plantas: any[] = [];
   plantasFiltradas: any[] = [];
+
+  cargando = true;
 
   categorias = [
     { label: 'Todas', value: 'ALL' },
@@ -29,11 +30,8 @@ export class CatalogoComponent implements OnInit {
   ];
 
   categoriaSeleccionada = 'ALL';
-  cargando = true;
 
-  // ===== MODAL =====
-  plantaSeleccionada: any = null;
-  imagenActiva: string | null = null;
+  // ================= INIT =================
 
   constructor(private plantaService: PlantaService) {}
 
@@ -41,58 +39,54 @@ export class CatalogoComponent implements OnInit {
     this.plantaService.listar().subscribe({
       next: data => {
         this.plantas = data;
-        this.plantasFiltradas = data;
+        this.plantasFiltradas = [...data];
         this.cargando = false;
       },
-      error: err => console.error('Error cargando plantas', err)
+      error: err => {
+        console.error('Error cargando plantas', err);
+        this.cargando = false;
+      }
     });
   }
 
-  seleccionarCategoria(valor: string) {
+  // ================= FILTROS =================
+
+  seleccionarCategoria(valor: string): void {
     this.categoriaSeleccionada = valor;
 
-    this.plantasFiltradas =
-      valor === 'ALL'
-        ? this.plantas
-        : this.plantas.filter(p => p.categoria === valor);
+    // 🔑 Forzamos recreación del DOM para animación fluida
+    this.plantasFiltradas = [];
+
+    setTimeout(() => {
+      if (valor === 'ALL') {
+        this.plantasFiltradas = [...this.plantas];
+      } else {
+        this.plantasFiltradas = this.plantas.filter(
+          p => p.categoria === valor
+        );
+      }
+    }, 0);
   }
 
-  ordenar(valor: string) {
+  ordenar(valor: string): void {
     const copia = [...this.plantasFiltradas];
 
     if (valor === 'precio-asc') {
-      this.plantasFiltradas = copia.sort((a, b) => a.precio - b.precio);
+      copia.sort((a, b) => a.precio - b.precio);
     }
 
     if (valor === 'precio-desc') {
-      this.plantasFiltradas = copia.sort((a, b) => b.precio - a.precio);
+      copia.sort((a, b) => b.precio - a.precio);
     }
+
+    this.plantasFiltradas = copia;
   }
 
-  verDetalle(planta: any) {
-    this.plantaSeleccionada = planta;
-    this.imagenActiva =
-      planta.imagenes?.length
-        ? planta.imagenes[0]
-        : planta.imagenPrincipal;
+  // ================= OPTIMIZACIÓN =================
+
+  trackByPlanta(index: number, planta: any): number {
+    return planta.id;
   }
 
-  
-  cerrarDetalle() {
-    this.plantaSeleccionada = null;
-    this.imagenActiva = null;
-  }
-
-  seleccionarImagen(url: string) {
-    this.imagenActiva = url;
-  }
-
-  @HostListener('document:keydown.escape')
-  onEscape() {
-    if (this.plantaSeleccionada) {
-      this.cerrarDetalle();
-    }
-  }
 }
-
 

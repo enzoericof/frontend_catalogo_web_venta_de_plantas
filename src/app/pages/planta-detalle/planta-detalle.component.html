@@ -1,0 +1,62 @@
+<!-- HEADER (igual al catálogo) -->
+<header class="header">
+  <div class="container header-inner">
+    <h1 class="logo" routerLink="/">VIVERO</h1>
+  </div>
+</header>
+
+
+<!-- CONTENIDO -->
+<section class="detalle-page">
+
+  <!-- BREADCRUMB -->
+ <nav class="breadcrumb" *ngIf="planta">
+  <a class="breadcrumb-back" (click)="volver()">← Catálogo</a>
+  <span class="sep">/</span>
+  <a routerLink="/">Inicio</a>
+  <span class="sep">/</span>
+  <strong>{{ planta.nombre }}</strong>
+</nav>
+
+
+
+  <!-- DETALLE -->
+  <div class="detalle-grid" *ngIf="!cargando && planta">
+
+    <!-- IMAGEN -->
+    <div class="detalle-imagen">
+      <img
+        [src]="planta.imagenPrincipal"
+        alt="{{ planta.nombre }}"
+      />
+    </div>
+
+    <!-- INFO -->
+    <div class="detalle-info">
+      <h1>{{ planta.nombre }}</h1>
+
+      <p class="precio">
+        {{ planta.precio | number:'1.0-0':'es' }} Gs
+      </p>
+
+      <p class="descripcion">
+        {{ planta.descripcion }}
+      </p>
+
+      <a
+        class="cta"
+        target="_blank"
+        [href]="'https://wa.me/595XXXXXXXXX?text=Hola, me interesa la planta ' + planta.nombre"
+      >
+        Solicitar cotización
+      </a>
+    </div>
+
+  </div>
+
+  <!-- LOADING -->
+  <div class="detalle-loading" *ngIf="cargando">
+    Cargando producto…
+  </div>
+
+</section>

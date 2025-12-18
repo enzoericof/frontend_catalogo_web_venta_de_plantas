@@ -14,4 +14,11 @@ export class PlantaService {
   listar(): Observable<any[]> {
     return this.http.get<any[]>(this.apiUrl);
   }
+
+
+  obtenerPorId(id: number) {
+  return this.http.get<any>(`${this.apiUrl}/${id}`);
+  }  
+
 }
+

@@ -20,7 +20,7 @@ body {
 .header-inner {
   max-width: 1400px;
   margin: 0 auto;
-  padding: 24px 32px;
+  padding: 32px;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -205,85 +205,34 @@ select {
   line-height: 1.6;
 }
 
-/* ===== WHATSAPP ===== */
-.whatsapp {
-  display: inline-block;
-  margin-top: 20px;
-  padding: 12px 20px;
-  background: #25d366;
-  color: white;
-  border-radius: 999px;
-  text-decoration: none;
-  font-weight: 500;
-}
 
-.modal {
-  width: min(520px, 92%);
-}
+/* ===== CARD APPEAR (STAGGER REAL) ===== */
 
-.modal-content.modal-vertical {
-  display: flex;
-  flex-direction: column;
-  padding: 0;
+.card {
+  background: #ffffff;
+  border-radius: 18px;
   overflow: hidden;
+  cursor: pointer;
+
+  opacity: 0;
+  transform: translateY(24px);
+
+  animation: cardReveal 0.6s ease forwards;
 }
 
-.modal-image img {
-  width: 100%;
-  height: 280px;
-  object-fit: cover;
-  border-radius: 28px 28px 0 0;
+@keyframes cardReveal {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
-.modal-info {
-  padding: 28px 32px 32px;
-  text-align: left;
+/* Hover (solo después de aparecer) */
+.card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.08);
 }
 
-.whatsapp {
-  background: #111;
-  color: #fff;
-  font-size: 14px;
-  padding: 12px 20px;
-  border-radius: 12px;
-  margin-top: 24px;
+html {
+  overflow-y: scroll;
 }
-
-.whatsapp:hover {
-  background: #000;
-}
-
-.modal-backdrop {
-  align-items: flex-start;
-  padding-top: 12vh;
-}
-
-.modal {
-  width: min(420px, 92%);
-}
-
-
-.modal-info h2 {
-  font-size: 1.6rem;
-  font-weight: 600;
-  letter-spacing: -0.015em;
-}
-
-.price {
-  font-size: 1.1rem;
-  color: #444;
-  margin-bottom: 18px;
-}
-
-.whatsapp {
-  background: transparent;
-  color: #111;
-  border: 1px solid #111;
-  font-weight: 500;
-}
-
-.whatsapp:hover {
-  background: #111;
-  color: #fff;
-}
-
