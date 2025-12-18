@@ -1,0 +1,94 @@
+<header class="header">
+  <div class="header-inner">
+    <h1 class="logo">VIVERO</h1>
+
+    <div class="actions">
+      <select #ordenSelect (change)="ordenar(ordenSelect.value)">
+        <option value="precio-asc">Precio ↑</option>
+        <option value="precio-desc">Precio ↓</option>
+      </select>
+    </div>
+  </div>
+</header>
+
+<section class="filters">
+  <button
+    *ngFor="let c of categorias"
+    [class.active]="c.value === categoriaSeleccionada"
+    (click)="seleccionarCategoria(c.value)">
+    {{ c.label }}
+  </button>
+</section>
+
+<section class="catalogo">
+  <div class="grid">
+<ng-container *ngIf="!cargando">
+  <article
+    class="card"
+    tabindex="0"
+    *ngFor="let planta of plantasFiltradas"
+    (click)="verDetalle(planta)"
+  >
+    <div class="image-wrapper">
+      <img
+        [src]="planta.imagenPrincipal"
+        alt="{{ planta.nombre }}"
+        loading="lazy"
+      />
+    </div>
+
+    <div class="info">
+      <h3>{{ planta.nombre }}</h3>
+      <span class="precio">
+        {{ planta.precio | number:'1.0-0':'es' }} Gs
+      </span>
+    </div>
+  </article>
+</ng-container>
+
+  </div>
+</section>
+<!-- MODAL DETALLE -->
+<div
+  class="modal-backdrop"
+  *ngIf="plantaSeleccionada"
+  (click)="cerrarDetalle()"
+>
+  <div class="modal" (click)="$event.stopPropagation()">
+    <div class="modal-content modal-vertical">
+
+  <button class="close" (click)="cerrarDetalle()">×</button>
+
+  <div class="modal-image">
+    <img
+      [src]="imagenActiva || plantaSeleccionada.imagenPrincipal"
+      alt="{{ plantaSeleccionada.nombre }}"
+    />
+  </div>
+
+  <div class="modal-info">
+    <h2>{{ plantaSeleccionada.nombre }}</h2>
+
+    <p class="price">
+      {{ plantaSeleccionada.precio | number:'1.0-0':'es' }} Gs
+    </p>
+
+    <p class="description">
+      {{ plantaSeleccionada.descripcion }}
+    </p>
+
+    <a class="whatsapp"
+       target="_blank"
+       href="https://wa.me/595XXXXXXXXX?text=Hola, me interesa {{ plantaSeleccionada.nombre }}">
+      Solicitar Cotización
+    </a>
+  </div>
+
+</div>
+
+
+    </div>
+  </div>
+
+
+
