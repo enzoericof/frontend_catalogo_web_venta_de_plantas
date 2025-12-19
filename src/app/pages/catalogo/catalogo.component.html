@@ -23,44 +23,46 @@
     </select>
   </div>
 </section>
-
-
-
 <section class="catalogo">
   <div class="grid loaded">
 
-    <ng-container *ngIf="!cargando">
+    <!-- SKELETON -->
+    <ng-container *ngIf="cargando">
+      <article class="card skeleton" *ngFor="let n of [1,2,3,4,5,6,7,8]">
+        <div class="image-wrapper skeleton-box"></div>
+        <div class="info">
+          <div class="skeleton-line title"></div>
+          <div class="skeleton-line price"></div>
+        </div>
+      </article>
+    </ng-container>
 
-      <ng-container *ngIf="mostrarGrid">
-        <article
-          class="card"
-          *ngFor="let planta of plantasFiltradas"
-          [routerLink]="['/plantas', planta.id]"
-          [queryParams]="categoriaSeleccionada !== 'ALL'
-            ? { categoria: categoriaSeleccionada }
-            : {}"
-        >
-          <div class="image-wrapper">
-            <img
-              [src]="planta.imagenPrincipal"
-              alt="{{ planta.nombre }}"
-              loading="lazy"
-            />
-          </div>
+    <!-- CARDS REALES -->
+    <ng-container *ngIf="!cargando && mostrarGrid">
+      <article
+        class="card"
+        *ngFor="let planta of plantasFiltradas"
+        [routerLink]="['/plantas', planta.id]"
+        [queryParams]="categoriaSeleccionada !== 'ALL'
+          ? { categoria: categoriaSeleccionada }
+          : {}"
+      >
+        <div class="image-wrapper">
+          <img
+            [src]="planta.imagenPrincipal"
+            alt="{{ planta.nombre }}"
+            loading="lazy"
+          />
+        </div>
 
-          <div class="info">
-            <h3>{{ planta.nombre }}</h3>
-            <span class="precio">
-              {{ planta.precio | number:'1.0-0':'es' }} Gs
-            </span>
-          </div>
-        </article>
-      </ng-container>
-
+        <div class="info">
+          <h3>{{ planta.nombre }}</h3>
+          <span class="precio">
+            {{ planta.precio | number:'1.0-0':'es' }} Gs
+          </span>
+        </div>
+      </article>
     </ng-container>
 
   </div>
 </section>
-
-
-

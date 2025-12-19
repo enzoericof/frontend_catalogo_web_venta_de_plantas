@@ -56,11 +56,15 @@ constructor(
 
     // 2️⃣ Cargar todas las plantas
     this.plantaService.listar().subscribe({
-      next: data => {
-        this.plantas = data;
-        this.filtrar();
-        this.cargando = false;
-      },
+next: data => {
+  this.plantas = data;
+  this.filtrar();
+
+  // SOLO PARA PROBAR EL SKELETON
+this.cargando = false;
+
+},
+
       error: () => this.cargando = false
     });
   }

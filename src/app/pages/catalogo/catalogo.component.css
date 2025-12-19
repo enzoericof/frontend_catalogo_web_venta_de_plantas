@@ -93,9 +93,14 @@ body {
   background: #ffffff;
   border-radius: 18px;
   overflow: hidden;
+  cursor: pointer;
+
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.04);
   transition: transform 0.25s ease, box-shadow 0.25s ease;
-  cursor: pointer;
+
+  opacity: 0;
+  transform: translateY(24px);
+  animation: cardReveal 0.6s ease forwards;
 }
 
 .card:hover {
@@ -104,7 +109,7 @@ body {
 }
 
 .image-wrapper {
-  height: 210x;
+  height: 350px;
   background: #f1f3f5;
   overflow: hidden;
 }
@@ -121,7 +126,7 @@ body {
 }
 
 .card:hover .image-wrapper img {
-  transform: scale(1.05);
+  transform: scale(1.1);
 }
 
 
@@ -138,10 +143,15 @@ body {
 }
 
 .precio {
-  font-size: 14px;
-  font-weight: 600;
+  display: inline-block;
+  margin-top: 0px;
+  padding: 4px 10px;
+  background: #ecfdf5;
   color: #16a34a;
+  border-radius: 999px;
+  font-size: 13px;
 }
+
 
 /* ================= SELECT ================= */
 
@@ -226,17 +236,6 @@ select {
 
 /* ===== CARD APPEAR (STAGGER REAL) ===== */
 
-.card {
-  background: #ffffff;
-  border-radius: 18px;
-  overflow: hidden;
-  cursor: pointer;
-
-  opacity: 0;
-  transform: translateY(24px);
-
-  animation: cardReveal 0.6s ease forwards;
-}
 
 @keyframes cardReveal {
   to {
@@ -253,4 +252,42 @@ select {
 
 html {
   overflow-y: scroll;
+}
+
+.skeleton-box {
+  height: 100%;
+  background: #e5e7eb;
+  border-radius: 12px;
+}
+
+.skeleton-line {
+  height: 175px;
+  background: #e5e7eb;
+  border-radius: 8px;
+  margin-top: 10px;
+}
+
+.skeleton-line.title {
+  width: 70%;
+}
+
+.skeleton-line.price {
+  width: 40%;
+}
+
+.skeleton {
+  pointer-events: none;
+  animation: pulse 1.4s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.55;
+  }
+  100% {
+    opacity: 1;
+  }
 }
