@@ -26,12 +26,12 @@
 
 
 
-
 <section class="catalogo">
   <div class="grid loaded">
 
     <ng-container *ngIf="!cargando">
 
+      <ng-container *ngIf="mostrarGrid">
         <article
           class="card"
           *ngFor="let planta of plantasFiltradas"
@@ -39,27 +39,28 @@
           [queryParams]="categoriaSeleccionada !== 'ALL'
             ? { categoria: categoriaSeleccionada }
             : {}"
->
+        >
+          <div class="image-wrapper">
+            <img
+              [src]="planta.imagenPrincipal"
+              alt="{{ planta.nombre }}"
+              loading="lazy"
+            />
+          </div>
 
-        <div class="image-wrapper">
-          <img
-            [src]="planta.imagenPrincipal"
-            alt="{{ planta.nombre }}"
-            loading="lazy"
-          />
-        </div>
-
-        <div class="info">
-          <h3>{{ planta.nombre }}</h3>
-          <span class="precio">
-            {{ planta.precio | number:'1.0-0':'es' }} Gs
-          </span>
-        </div>
-      </article>
+          <div class="info">
+            <h3>{{ planta.nombre }}</h3>
+            <span class="precio">
+              {{ planta.precio | number:'1.0-0':'es' }} Gs
+            </span>
+          </div>
+        </article>
+      </ng-container>
 
     </ng-container>
 
   </div>
 </section>
+
 
 

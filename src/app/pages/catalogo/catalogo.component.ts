@@ -20,8 +20,10 @@ export class CatalogoComponent implements OnInit {
 
   plantas: any[] = [];
   plantasFiltradas: any[] = [];
-
+  renderKey = 0;
   cargando = true;
+  mostrarGrid = true;
+
 
   categorias = [
     { label: 'Todas', value: 'ALL' },
@@ -76,6 +78,8 @@ seleccionarCategoria(valor: string): void {
 
 
   private filtrar(): void {
+    this.mostrarGrid = false;
+
     if (this.categoriaSeleccionada === 'ALL') {
       this.plantasFiltradas = [...this.plantas];
     } else {
@@ -83,7 +87,14 @@ seleccionarCategoria(valor: string): void {
         p => p.categoria === this.categoriaSeleccionada
       );
     }
+
+    // fuerza recreación real del DOM
+    setTimeout(() => {
+      this.mostrarGrid = true;
+    });
   }
+
+
 
   ordenar(valor: string): void {
     const copia = [...this.plantasFiltradas];
