@@ -1,4 +1,3 @@
-
 /* ================= HEADER ================= */
 
 .header {
@@ -16,7 +15,6 @@
 }
 
 .logo {
-    
   text-decoration: none;
   color: #111;
   font-size: 22px;
@@ -26,8 +24,6 @@
   line-height: 1;
 }
 
-
-
 /* ================= PAGE ================= */
 
 :host {
@@ -36,7 +32,6 @@
   min-height: 100vh;
 }
 
-/* Contenedor principal (misma lógica que catálogo) */
 .detalle-page {
   max-width: 1400px;
   margin: 0 auto;
@@ -69,66 +64,68 @@
   color: #111;
 }
 
-/* ================= BACK BUTTON ================= */
-.back-btn {
-  display: inline-flex;
-  align-items: center;
-  gap: 10px;
-
-  background: transparent;
-  border: none;
-  padding: 6px 0;
-  margin-bottom: 32px;
-
-  font-size: 14px;
-  font-weight: 500;
-  color: #444;
-
-  cursor: pointer;
-  transition: color 0.2s ease, transform 0.2s ease;
-}
-
-.back-btn:hover {
-  color: #111;
-  transform: translateX(-2px);
-}
-
-.back-icon {
-  font-size: 16px;
-  line-height: 1;
-}
-
-
 /* ================= GRID ================= */
 
 .detalle-grid {
   display: grid;
-  grid-template-columns: 1.2fr 1fr;
-  gap: 64px;
+  grid-template-columns: 1fr 1fr;
+  gap: 48px;
   align-items: start;
 }
 
-/* ================= IMAGE ================= */
+/* ================= IMAGEN PRINCIPAL ================= */
+
+/* ================= IMAGEN PRINCIPAL ================= */
 
 .detalle-imagen {
   background: #f1f3f5;
-  border-radius: 24px;
-  padding: 40px;
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  border-radius: 18px;
+  padding: 16px;
+  position: relative;
 }
 
 .detalle-imagen img {
   width: 100%;
-  max-height: 420px;
+  max-height: 520px;
   object-fit: contain;
+  border-radius: 14px;
+  background: transparent; /* 🔴 antes era blanco */
+  display: block;
+}
+
+
+/* ================= THUMBNAILS ================= */
+
+.thumbs {
+  display: flex;
+  gap: 12px;
+  margin-top: 14px;
+}
+
+.thumbs img {
+  width: 64px;
+  height: 64px;
+  object-fit: cover;
+  border-radius: 10px;
+  cursor: pointer;
+  opacity: 0.6;
+  border: 2px solid transparent;
+  transition: all 0.2s ease;
+}
+
+.thumbs img:hover {
+  opacity: 1;
+}
+
+.thumbs img.active {
+  opacity: 1;
+  border-color: #111;
 }
 
 /* ================= INFO ================= */
 
 .detalle-info h1 {
+  margin-top: 0;
   font-size: 28px;
   font-weight: 600;
   letter-spacing: -0.015em;
@@ -154,15 +151,12 @@
 .cta {
   display: inline-block;
   padding: 14px 26px;
-
   border-radius: 12px;
   background: #111;
   color: #fff;
-
   text-decoration: none;
   font-size: 14px;
   font-weight: 500;
-
   transition: background 0.2s ease;
 }
 
@@ -187,12 +181,40 @@
     gap: 32px;
   }
 
-  .detalle-imagen {
-    padding: 24px;
-  }
-
   .detalle-info h1 {
     font-size: 24px;
   }
 }
 
+/* ================= FLECHAS ================= */
+
+.nav-arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  border: none;
+  background: rgba(255, 255, 255, 0.85);
+  font-size: 26px;
+  cursor: pointer;
+  color: #111;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.2s ease, transform 0.2s ease;
+}
+
+.nav-arrow:hover {
+  background: #fff;
+  transform: translateY(-50%) scale(1.05);
+}
+
+.nav-arrow.left {
+  left: 12px;
+}
+
+.nav-arrow.right {
+  right: 12px;
+}

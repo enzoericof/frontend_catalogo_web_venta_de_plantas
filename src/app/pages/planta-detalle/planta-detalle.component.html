@@ -1,62 +1,90 @@
-<!-- HEADER (igual al catálogo) -->
 <header class="header">
   <div class="container header-inner">
     <a class="logo" routerLink="/">VIVERO</a>
   </div>
 </header>
 
-
-<!-- CONTENIDO -->
 <section class="detalle-page">
 
   <!-- BREADCRUMB -->
-<nav class="breadcrumb" *ngIf="planta">
-  <a routerLink="/">Catálogo</a>
+  <nav class="breadcrumb" *ngIf="planta">
+    <a routerLink="/">Catálogo</a>
 
-  <ng-container *ngIf="getCategoriaLabel(categoriaOrigen)">
+    <ng-container *ngIf="getCategoriaLabel(categoriaOrigen)">
+      <span>/</span>
+      <a
+        routerLink="/"
+        [queryParams]="{ categoria: categoriaOrigen }"
+      >
+        {{ getCategoriaLabel(categoriaOrigen) }}
+      </a>
+    </ng-container>
+
     <span>/</span>
-    <a
-      [routerLink]="['/']"
-      [queryParams]="{ categoria: categoriaOrigen }"
-    >
-      {{ getCategoriaLabel(categoriaOrigen) }}
-    </a>
-  </ng-container>
+    <strong>{{ planta.nombre }}</strong>
+  </nav>
 
-  <span>/</span>
-  <strong>{{ planta.nombre }}</strong>
-</nav>
+  <!-- CONTENIDO -->
+  <div class="detalle-grid" *ngIf="!cargando && planta as p">
 
+    <!-- BLOQUE IMÁGENES -->
+    <div class="detalle-imagen" *ngIf="imagenActiva">
 
+      <!-- FLECHA IZQUIERDA -->
+      <button
+        class="nav-arrow left"
+        *ngIf="p.imagenes.length > 1"
+        (click)="imagenAnterior()"
+        aria-label="Imagen anterior"
+      >
+        ‹
+      </button>
 
-
-  <!-- DETALLE -->
-  <div class="detalle-grid" *ngIf="!cargando && planta">
-
-    <!-- IMAGEN -->
-    <div class="detalle-imagen">
+      <!-- IMAGEN PRINCIPAL -->
       <img
-        [src]="planta.imagenPrincipal"
-        alt="{{ planta.nombre }}"
+        [src]="imagenActiva"
+        [alt]="p.nombre"
       />
+
+      <!-- FLECHA DERECHA -->
+      <button
+        class="nav-arrow right"
+        *ngIf="p.imagenes.length > 1"
+        (click)="imagenSiguiente()"
+        aria-label="Imagen siguiente"
+      >
+        ›
+      </button>
+
+      <!-- THUMBNAILS -->
+      <div class="thumbs" *ngIf="p.imagenes.length > 1">
+        <img
+          *ngFor="let img of p.imagenes"
+          [src]="'/' + img.url"
+          [class.active]="imagenActiva === '/' + img.url"
+          (click)="cambiarImagen(img.url)"
+          alt="Miniatura"
+        />
+      </div>
+
     </div>
 
     <!-- INFO -->
     <div class="detalle-info">
-      <h1>{{ planta.nombre }}</h1>
+      <h1>{{ p.nombre }}</h1>
 
       <p class="precio">
-        {{ planta.precio | number:'1.0-0':'es' }} Gs
+        {{ p.precio | number:'1.0-0':'es' }} Gs
       </p>
 
       <p class="descripcion">
-        {{ planta.descripcion }}
+        {{ p.descripcion }}
       </p>
 
       <a
         class="cta"
         target="_blank"
-        [href]="'https://wa.me/595XXXXXXXXX?text=Hola, me interesa la planta ' + planta.nombre"
+        [href]="'https://wa.me/595991611061?text=Hola, me interesa la planta ' + p.nombre"
       >
         Solicitar cotización
       </a>
