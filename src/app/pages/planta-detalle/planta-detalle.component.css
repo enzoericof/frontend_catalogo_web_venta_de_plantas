@@ -73,78 +73,120 @@
   align-items: start;
 }
 
-/* ================= IMAGEN PRINCIPAL ================= */
+/* ==============/* ================= GALERÍA ================= */
 
-/* ================= IMAGEN PRINCIPAL ================= */
+.galeria {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
 
-.detalle-imagen {
-  background: #f1f3f5;
-  border-radius: 18px;
-  padding: 16px;
+/* Imagen principal */
+.imagen-principal {
   position: relative;
-}
-
-.detalle-imagen img {
   width: 100%;
-  max-height: 520px;
-  object-fit: contain;
-  border-radius: 14px;
-  background: transparent; /* 🔴 antes era blanco */
-  display: block;
+  height: 520px;
+
+  /* Quitamos la caja */
+  background: transparent;
+  border-radius: 0;
+  overflow: visible;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
+
+.imagen-principal img {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+
+  /* Redondeo elegante */
+  border-radius: 28px;
+
+  /* Sombra editorial, no “card” */
+  box-shadow:
+    0 20px 40px rgba(0, 0, 0, 0.12),
+    0 8px 16px rgba(0, 0, 0, 0.08);
+
+  background: transparent;
+}
+
+
+/* Flechas */
+.nav-arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+
+  background: rgba(255,255,255,0.85);
+  border: none;
+
+  font-size: 22px;
+  line-height: 1;
+  cursor: pointer;
+
+  color: #111;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+
+  transition: transform 0.2s ease, background 0.2s ease;
+}
+
+.nav-arrow:hover {
+  background: #fff;
+  transform: translateY(-50%) scale(1.05);
+}
+
+.nav-arrow.left {
+  left: 16px;
+}
+
+.nav-arrow.right {
+  right: 16px;
+}
 
 /* ================= THUMBNAILS ================= */
 
 .thumbs {
   display: flex;
-  gap: 12px;
-  margin-top: 14px;
+  gap: 14px;
 }
 
-.thumbs img {
-  width: 64px;
-  height: 64px;
-  object-fit: cover;
-  border-radius: 10px;
+.thumb {
+  border: none;
+  padding: 0;
+  background: none;
   cursor: pointer;
-  opacity: 0.6;
-  border: 2px solid transparent;
-  transition: all 0.2s ease;
 }
 
-.thumbs img:hover {
+.thumb img {
+  width: 72px;
+  height: 72px;
+
+  object-fit: cover;
+  border-radius: 16px;
+
+  opacity: 0.45;
+  filter: grayscale(10%);
+  transition: all 0.25s ease;
+}
+
+.thumb:hover img {
+  opacity: 0.8;
+}
+
+.thumb.active img {
   opacity: 1;
+  filter: none;
+  box-shadow: 0 0 0 2px #111;
 }
 
-.thumbs img.active {
-  opacity: 1;
-  border-color: #111;
-}
-
-/* ================= INFO ================= */
-
-.detalle-info h1 {
-  margin-top: 0;
-  font-size: 28px;
-  font-weight: 600;
-  letter-spacing: -0.015em;
-  margin-bottom: 12px;
-}
-
-.precio {
-  font-size: 18px;
-  font-weight: 600;
-  color: #16a34a;
-  margin-bottom: 20px;
-}
-
-.descripcion {
-  font-size: 15px;
-  color: #444;
-  line-height: 1.6;
-  margin-bottom: 32px;
-}
 
 /* ================= CTA ================= */
 
@@ -196,19 +238,16 @@
   height: 42px;
   border-radius: 50%;
   border: none;
-  background: rgba(255, 255, 255, 0.85);
-  font-size: 26px;
+  background: rgba(255,255,255,0.85);
+  backdrop-filter: blur(6px);
+  font-size: 22px;
   cursor: pointer;
-  color: #111;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: background 0.2s ease, transform 0.2s ease;
+  opacity: 0;
+  transition: opacity 0.2s ease, transform 0.2s ease;
 }
 
-.nav-arrow:hover {
-  background: #fff;
-  transform: translateY(-50%) scale(1.05);
+.detalle-imagen:hover .nav-arrow {
+  opacity: 1;
 }
 
 .nav-arrow.left {
@@ -217,4 +256,8 @@
 
 .nav-arrow.right {
   right: 12px;
+}
+
+.nav-arrow:hover {
+  transform: translateY(-50%) scale(1.08);
 }

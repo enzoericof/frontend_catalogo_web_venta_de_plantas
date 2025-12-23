@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { PlantaService } from '../../core/planta.service';
-import { PlantaDetalle } from '../../core/planta-detalle.model';
+import { ImagenPlanta, PlantaDetalle } from '../../core/planta-detalle.model';
 
 @Component({
   selector: 'app-planta-detalle',
@@ -37,7 +37,7 @@ export class PlantaDetalleComponent implements OnInit {
       next: data => {
         this.planta = data;
 
-        if (this.planta.imagenes && this.planta.imagenes.length > 0) {
+        if (this.planta.imagenes?.length) {
           this.indiceImagen = 0;
           this.imagenActiva = '/' + this.planta.imagenes[0].url;
         }
@@ -55,8 +55,7 @@ export class PlantaDetalleComponent implements OnInit {
 
   cambiarImagen(url: string): void {
     this.imagenActiva = '/' + url;
-    this.indiceImagen =
-      this.planta.imagenes.findIndex(i => i.url === url);
+    this.indiceImagen = this.planta.imagenes.findIndex(i => i.url === url);
   }
 
   imagenAnterior(): void {
@@ -78,6 +77,12 @@ export class PlantaDetalleComponent implements OnInit {
 
     this.imagenActiva =
       '/' + this.planta.imagenes[this.indiceImagen].url;
+  }
+
+  /* ================= TRACK BY (CLAVE) ================= */
+
+  trackByUrl(index: number, img: ImagenPlanta): string {
+    return img.url;
   }
 
   /* ================= NAVEGACIÓN ================= */

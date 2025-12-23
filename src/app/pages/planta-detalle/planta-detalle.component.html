@@ -1,12 +1,14 @@
+<!-- ================= HEADER ================= -->
 <header class="header">
   <div class="container header-inner">
     <a class="logo" routerLink="/">VIVERO</a>
   </div>
 </header>
 
+<!-- ================= PAGE ================= -->
 <section class="detalle-page">
 
-  <!-- BREADCRUMB -->
+  <!-- ===== BREADCRUMB ===== -->
   <nav class="breadcrumb" *ngIf="planta">
     <a routerLink="/">Catálogo</a>
 
@@ -24,52 +26,58 @@
     <strong>{{ planta.nombre }}</strong>
   </nav>
 
-  <!-- CONTENIDO -->
+  <!-- ===== CONTENIDO ===== -->
   <div class="detalle-grid" *ngIf="!cargando && planta as p">
 
-    <!-- BLOQUE IMÁGENES -->
-    <div class="detalle-imagen" *ngIf="imagenActiva">
+    <!-- ================= GALERÍA ================= -->
+    <div class="galeria">
 
-      <!-- FLECHA IZQUIERDA -->
-      <button
-        class="nav-arrow left"
-        *ngIf="p.imagenes.length > 1"
-        (click)="imagenAnterior()"
-        aria-label="Imagen anterior"
-      >
-        ‹
-      </button>
+      <!-- Imagen principal -->
+      <div class="imagen-principal">
 
-      <!-- IMAGEN PRINCIPAL -->
-      <img
-        [src]="imagenActiva"
-        [alt]="p.nombre"
-      />
+        <button
+          class="nav-arrow left"
+          *ngIf="p.imagenes.length > 1"
+          type="button"
+          (click)="imagenAnterior()"
+          aria-label="Imagen anterior"
+        >
+          ‹
+        </button>
 
-      <!-- FLECHA DERECHA -->
-      <button
-        class="nav-arrow right"
-        *ngIf="p.imagenes.length > 1"
-        (click)="imagenSiguiente()"
-        aria-label="Imagen siguiente"
-      >
-        ›
-      </button>
-
-      <!-- THUMBNAILS -->
-      <div class="thumbs" *ngIf="p.imagenes.length > 1">
         <img
-          *ngFor="let img of p.imagenes"
-          [src]="'/' + img.url"
+          [src]="imagenActiva || ''"
+          [alt]="p.nombre"
+        />
+
+        <button
+          class="nav-arrow right"
+          *ngIf="p.imagenes.length > 1"
+          type="button"
+          (click)="imagenSiguiente()"
+          aria-label="Imagen siguiente"
+        >
+          ›
+        </button>
+
+      </div>
+
+      <!-- Thumbnails -->
+      <div class="thumbs" *ngIf="p.imagenes.length > 1">
+        <button
+          *ngFor="let img of p.imagenes; trackBy: trackByUrl"
+          type="button"
+          class="thumb"
           [class.active]="imagenActiva === '/' + img.url"
           (click)="cambiarImagen(img.url)"
-          alt="Miniatura"
-        />
+        >
+          <img [src]="'/' + img.url" alt="Miniatura" />
+        </button>
       </div>
 
     </div>
 
-    <!-- INFO -->
+    <!-- ================= INFO ================= -->
     <div class="detalle-info">
       <h1>{{ p.nombre }}</h1>
 
@@ -92,7 +100,7 @@
 
   </div>
 
-  <!-- LOADING -->
+  <!-- ===== LOADING ===== -->
   <div class="detalle-loading" *ngIf="cargando">
     Cargando producto…
   </div>
