@@ -32,9 +32,10 @@
     <!-- ================= GALERÍA ================= -->
     <div class="galeria">
 
-      <!-- Imagen principal -->
-      <div class="imagen-principal">
+      <!-- IMAGEN PRINCIPAL -->
+      <div class="imagen-wrap">
 
+        <!-- Flecha izquierda -->
         <button
           class="nav-arrow left"
           *ngIf="p.imagenes.length > 1"
@@ -45,11 +46,14 @@
           ‹
         </button>
 
+        <!-- Imagen -->
         <img
+          class="imagen-principal"
           [src]="imagenActiva || ''"
           [alt]="p.nombre"
         />
 
+        <!-- Flecha derecha -->
         <button
           class="nav-arrow right"
           *ngIf="p.imagenes.length > 1"
@@ -62,7 +66,7 @@
 
       </div>
 
-      <!-- Thumbnails -->
+      <!-- THUMBNAILS -->
       <div class="thumbs" *ngIf="p.imagenes.length > 1">
         <button
           *ngFor="let img of p.imagenes; trackBy: trackByUrl"
@@ -70,6 +74,7 @@
           class="thumb"
           [class.active]="imagenActiva === '/' + img.url"
           (click)="cambiarImagen(img.url)"
+          aria-label="Seleccionar imagen"
         >
           <img [src]="'/' + img.url" alt="Miniatura" />
         </button>
