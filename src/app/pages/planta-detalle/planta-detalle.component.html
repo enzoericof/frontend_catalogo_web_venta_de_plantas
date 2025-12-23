@@ -47,11 +47,15 @@
         </button>
 
         <!-- Imagen -->
-        <img
-          class="imagen-principal"
-          [src]="imagenActiva || ''"
-          [alt]="p.nombre"
-        />
+<img
+  class="imagen-principal"
+  [class.is-exiting]="animando"
+  [src]="imagenActiva || ''"
+  [alt]="p.nombre"
+/>
+
+
+
 
         <!-- Flecha derecha -->
         <button

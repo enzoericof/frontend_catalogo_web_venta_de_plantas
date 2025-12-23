@@ -95,18 +95,31 @@
 }
 
 /* Imagen */
+
 .imagen-principal {
   display: block;
   max-width: 520px;
   width: 100%;
   border-radius: 32px;
-  position: relative;
-  z-index: 2;
 
   box-shadow:
-    0 30px 60px rgba(0, 0, 0, 0.18),
-    0 10px 20px rgba(0, 0, 0, 0.10);
+    0 30px 60px rgba(0,0,0,0.18),
+    0 10px 20px rgba(0,0,0,0.10);
+
+  /* CLAVE: evita flicker */
+  backface-visibility: hidden;
+  transform: translateZ(0);
 }
+
+
+/* estado transitorio */
+.imagen-principal.is-exiting {
+  opacity: 0;
+  filter: brightness(0.92) blur(6px);
+}
+
+
+
 
 /* HALO ORGÁNICO (ACÁ ESTÁ LA MAGIA) */
 .imagen-wrap::before {
@@ -219,6 +232,18 @@
 }
 
 /* ================= RESPONSIVE ================= */
+.detalle-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 64px;
+  align-items: start;
+}
+
+.detalle-info {
+  padding-top: 56px;
+}
+
+
 
 @media (max-width: 900px) {
   .detalle-grid {

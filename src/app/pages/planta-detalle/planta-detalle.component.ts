@@ -20,6 +20,8 @@ export class PlantaDetalleComponent implements OnInit {
 
   cargando = true;
   categoriaOrigen: string | null = null;
+  animando= false;
+
 
   constructor(
     private route: ActivatedRoute,
@@ -53,31 +55,35 @@ export class PlantaDetalleComponent implements OnInit {
 
   /* ================= IMÁGENES ================= */
 
-  cambiarImagen(url: string): void {
-    this.imagenActiva = '/' + url;
-    this.indiceImagen = this.planta.imagenes.findIndex(i => i.url === url);
-  }
 
-  imagenAnterior(): void {
-    if (!this.planta?.imagenes?.length) return;
 
-    this.indiceImagen =
-      (this.indiceImagen - 1 + this.planta.imagenes.length) %
-      this.planta.imagenes.length;
+cambiarImagen(url: string): void {
+  const nueva = '/' + url;
+  if (this.imagenActiva === nueva) return;
 
-    this.imagenActiva =
-      '/' + this.planta.imagenes[this.indiceImagen].url;
-  }
+  this.imagenActiva = nueva;
+}
 
-  imagenSiguiente(): void {
-    if (!this.planta?.imagenes?.length) return;
 
-    this.indiceImagen =
-      (this.indiceImagen + 1) % this.planta.imagenes.length;
 
-    this.imagenActiva =
-      '/' + this.planta.imagenes[this.indiceImagen].url;
-  }
+imagenAnterior(): void {
+  if (!this.planta?.imagenes?.length) return;
+
+  this.indiceImagen =
+    (this.indiceImagen - 1 + this.planta.imagenes.length) %
+    this.planta.imagenes.length;
+
+  this.cambiarImagen(this.planta.imagenes[this.indiceImagen].url);
+}
+
+imagenSiguiente(): void {
+  if (!this.planta?.imagenes?.length) return;
+
+  this.indiceImagen =
+    (this.indiceImagen + 1) % this.planta.imagenes.length;
+
+  this.cambiarImagen(this.planta.imagenes[this.indiceImagen].url);
+}
 
   /* ================= TRACK BY (CLAVE) ================= */
 
