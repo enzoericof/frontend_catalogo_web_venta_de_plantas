@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { PlantaService } from '../../core/planta.service';
-import { ImagenPlanta, PlantaDetalle } from '../../core/planta-detalle.model';
+import { PlantaDetalle } from '../../core/planta-detalle.model';
 
 @Component({
   selector: 'app-planta-detalle',
@@ -15,13 +15,11 @@ export class PlantaDetalleComponent implements OnInit {
 
   planta!: PlantaDetalle;
 
-  imagenActiva: string | null = null;
+  imagenActiva = '';
   indiceImagen = 0;
 
   cargando = true;
   categoriaOrigen: string | null = null;
-  animando= false;
-
 
   constructor(
     private route: ActivatedRoute,
@@ -31,89 +29,44 @@ export class PlantaDetalleComponent implements OnInit {
 
   ngOnInit(): void {
     const id = Number(this.route.snapshot.paramMap.get('id'));
-
-    this.categoriaOrigen =
-      this.route.snapshot.queryParamMap.get('categoria');
+    this.categoriaOrigen = this.route.snapshot.queryParamMap.get('categoria');
 
     this.plantaService.obtenerPorId(id).subscribe({
       next: data => {
         this.planta = data;
 
-        if (this.planta.imagenes?.length) {
+        if (this.planta.imagenes.length > 0) {
           this.indiceImagen = 0;
-          this.imagenActiva = '/' + this.planta.imagenes[0].url;
+          this.imagenActiva = '/' + this.planta.imagenes[0];
         }
 
         this.cargando = false;
       },
-      error: err => {
-        console.error('Error cargando planta', err);
-        this.cargando = false;
-      }
+      error: () => this.cargando = false
     });
   }
 
-  /* ================= IMÁGENES ================= */
-
-
-
-cambiarImagen(url: string): void {
-  const nueva = '/' + url;
-  if (this.imagenActiva === nueva) return;
-
-  this.imagenActiva = nueva;
-}
-
-
-
-imagenAnterior(): void {
-  if (!this.planta?.imagenes?.length) return;
-
-  this.indiceImagen =
-    (this.indiceImagen - 1 + this.planta.imagenes.length) %
-    this.planta.imagenes.length;
-
-  this.cambiarImagen(this.planta.imagenes[this.indiceImagen].url);
-}
-
-imagenSiguiente(): void {
-  if (!this.planta?.imagenes?.length) return;
-
-  this.indiceImagen =
-    (this.indiceImagen + 1) % this.planta.imagenes.length;
-
-  this.cambiarImagen(this.planta.imagenes[this.indiceImagen].url);
-}
-
-  /* ================= TRACK BY (CLAVE) ================= */
-
-  trackByUrl(index: number, img: ImagenPlanta): string {
-    return img.url;
+  cambiarImagen(img: string): void {
+    this.indiceImagen = this.planta.imagenes.indexOf(img);
+    this.imagenActiva = '/' + img;
   }
 
-  /* ================= NAVEGACIÓN ================= */
+  imagenAnterior(): void {
+    this.indiceImagen =
+      (this.indiceImagen - 1 + this.planta.imagenes.length) %
+      this.planta.imagenes.length;
 
-  volver(): void {
-    this.router.navigate(['/'], {
-      queryParams: this.categoriaOrigen
-        ? { categoria: this.categoriaOrigen }
-        : {}
-    });
+    this.imagenActiva = '/' + this.planta.imagenes[this.indiceImagen];
   }
 
-  /* ================= CATEGORÍAS ================= */
+  imagenSiguiente(): void {
+    this.indiceImagen =
+      (this.indiceImagen + 1) % this.planta.imagenes.length;
 
-  categorias = [
-    { label: 'Cactus', value: 'Cactus y Suculentas' },
-    { label: 'Decoración', value: 'Decoración' },
-    { label: 'Florales', value: 'Florales' },
-    { label: 'Macetas', value: 'Macetas' },
-    { label: 'Exterior', value: 'Plantas para exterior' },
-    { label: 'Interior', value: 'Plantas para interior' }
-  ];
+    this.imagenActiva = '/' + this.planta.imagenes[this.indiceImagen];
+  }
 
-  getCategoriaLabel(value: string | null): string | null {
-    if (!value || value === 'ALL') return null;
-    return this.categorias.find(c => c.value === value)?.label ?? value;
+  trackByIndex(index: number): number {
+    return index;
   }
 }

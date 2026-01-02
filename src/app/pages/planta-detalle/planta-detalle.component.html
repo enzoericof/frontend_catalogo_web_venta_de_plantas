@@ -11,105 +11,71 @@
   <!-- ===== BREADCRUMB ===== -->
   <nav class="breadcrumb" *ngIf="planta">
     <a routerLink="/">Catálogo</a>
-
-    <ng-container *ngIf="getCategoriaLabel(categoriaOrigen)">
-      <span>/</span>
-      <a
-        routerLink="/"
-        [queryParams]="{ categoria: categoriaOrigen }"
-      >
-        {{ getCategoriaLabel(categoriaOrigen) }}
-      </a>
-    </ng-container>
-
     <span>/</span>
     <strong>{{ planta.nombre }}</strong>
   </nav>
 
   <!-- ===== CONTENIDO ===== -->
-  <div class="detalle-grid" *ngIf="!cargando && planta as p">
+  <div class="detalle-grid" *ngIf="!cargando && planta">
 
-    <!-- ================= GALERÍA ================= -->
+    <!-- ===== GALERÍA ===== -->
     <div class="galeria">
 
-      <!-- IMAGEN PRINCIPAL -->
       <div class="imagen-wrap">
-
-        <!-- Flecha izquierda -->
         <button
           class="nav-arrow left"
-          *ngIf="p.imagenes.length > 1"
-          type="button"
-          (click)="imagenAnterior()"
-          aria-label="Imagen anterior"
-        >
+          *ngIf="planta.imagenes.length > 1"
+          (click)="imagenAnterior()">
           ‹
         </button>
 
-        <!-- Imagen -->
-<img
-  class="imagen-principal"
-  [class.is-exiting]="animando"
-  [src]="imagenActiva || ''"
-  [alt]="p.nombre"
-/>
+        <img
+          class="imagen-principal"
+          [src]="imagenActiva"
+          [alt]="planta.nombre" />
 
-
-
-
-        <!-- Flecha derecha -->
         <button
           class="nav-arrow right"
-          *ngIf="p.imagenes.length > 1"
-          type="button"
-          (click)="imagenSiguiente()"
-          aria-label="Imagen siguiente"
-        >
+          *ngIf="planta.imagenes.length > 1"
+          (click)="imagenSiguiente()">
           ›
         </button>
-
       </div>
 
-      <!-- THUMBNAILS -->
-      <div class="thumbs" *ngIf="p.imagenes.length > 1">
+      <div class="thumbs" *ngIf="planta.imagenes.length > 1">
         <button
-          *ngFor="let img of p.imagenes; trackBy: trackByUrl"
-          type="button"
+          *ngFor="let img of planta.imagenes; trackBy: trackByIndex"
           class="thumb"
-          [class.active]="imagenActiva === '/' + img.url"
-          (click)="cambiarImagen(img.url)"
-          aria-label="Seleccionar imagen"
-        >
-          <img [src]="'/' + img.url" alt="Miniatura" />
+          [class.active]="imagenActiva === '/' + img"
+          (click)="cambiarImagen(img)">
+          <img [src]="'/' + img" />
         </button>
       </div>
 
     </div>
 
-    <!-- ================= INFO ================= -->
+    <!-- ===== INFO ===== -->
     <div class="detalle-info">
-      <h1>{{ p.nombre }}</h1>
+      <h1>{{ planta.nombre }}</h1>
 
       <p class="precio">
-        {{ p.precio | number:'1.0-0':'es' }} Gs
+        {{ planta.precio | number:'1.0-0':'es' }} Gs
       </p>
 
       <p class="descripcion">
-        {{ p.descripcion }}
+        {{ planta.descripcion }}
       </p>
 
       <a
         class="cta"
         target="_blank"
-        [href]="'https://wa.me/595991611061?text=Hola, me interesa la planta ' + p.nombre"
-      >
+        [href]="'https://wa.me/595991611061?text=Hola, me interesa la planta ' + planta.nombre">
         Solicitar cotización
       </a>
     </div>
 
   </div>
 
-  <!-- ===== LOADING ===== -->
   <div class="detalle-loading" *ngIf="cargando">
     Cargando producto…
   </div>
