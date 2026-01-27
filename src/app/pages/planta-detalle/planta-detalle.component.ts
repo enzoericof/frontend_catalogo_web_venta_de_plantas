@@ -70,3 +70,4 @@ export class PlantaDetalleComponent implements OnInit {
     return index;
   }
 }
+
