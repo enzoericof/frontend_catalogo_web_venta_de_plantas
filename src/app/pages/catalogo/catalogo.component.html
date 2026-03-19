@@ -58,9 +58,9 @@
       <h2>Qui&eacute;nes somos</h2>
     </a>
 
-    <span class="hero-card hero-card--terracotta is-disabled" aria-disabled="true">
+    <a class="hero-card hero-card--terracotta" href="#recibir-novedades">
       <h2>Recibir novedades</h2>
-    </span>
+    </a>
   </div>
 </section>
 
@@ -152,13 +152,11 @@
 
       <p class="about-lead">
         Somos un vivero pensado para acompa&ntilde;arte con una selecci&oacute;n simple,
-        est&eacute;tica y f&aacute;cil de consultar. Nuestro objetivo no es llenarte de opciones,
-        sino ayudarte a encontrar la indicada.
+        est&eacute;tica y f&aacute;cil de consultar.
       </p>
 
       <div class="about-points">
         <span>Asesoramiento directo</span>
-        <span>Selecci&oacute;n curada</span>
         <span>Entregas coordinadas</span>
       </div>
     </div>
@@ -176,4 +174,65 @@
       </div>
     </div>
   </div>
+</section>
+
+<section class="newsletter-section" id="recibir-novedades">
+  <div class="newsletter-copy">
+    <p class="catalogo-eyebrow">Recibir novedades</p>
+    <h2 class="catalogo-title">Te avisamos cuando llegue algo que valga la pena ver</h2>
+    <p class="newsletter-text">
+      Puedes dejarnos tu email o tu WhatsApp y te contactaremos cuando haya ingresos nuevos,
+      macetas destacadas o selecciones especiales del vivero.
+    </p>
+
+    <div class="newsletter-points">
+      <span>Nuevos ingresos</span>
+      <span>Macetas destacadas</span>
+      <span>Seleccion de temporada</span>
+    </div>
+  </div>
+
+  <form class="newsletter-form" (ngSubmit)="enviarNovedades()">
+    <label class="newsletter-honeypot" aria-hidden="true" tabindex="-1">
+      <span>No completar</span>
+      <input
+        type="text"
+        name="website"
+        [(ngModel)]="novedadesHoney"
+        autocomplete="off"
+        tabindex="-1" />
+    </label>
+
+    <label class="newsletter-field">
+      <span>Email</span>
+      <input
+        type="email"
+        name="email"
+        [(ngModel)]="novedadesEmail"
+        placeholder="tu@email.com" />
+    </label>
+
+    <label class="newsletter-field">
+      <span>Whatsapp</span>
+      <input
+        type="text"
+        name="whatsapp"
+        [(ngModel)]="novedadesWhatsapp"
+        placeholder="+595 981 632616" />
+    </label>
+
+    <p class="newsletter-note">Puedes dejar uno de los dos, o ambos si prefieres.</p>
+
+    <button class="newsletter-button" type="submit" [disabled]="novedadesEnviando || novedadesEnfriando">
+      {{ novedadesButtonLabel }}
+    </button>
+
+    <p
+      *ngIf="novedadesMensaje"
+      class="newsletter-feedback"
+      [class.newsletter-feedback--error]="novedadesEstado === 'error'"
+      [class.newsletter-feedback--ok]="novedadesEstado === 'ok'">
+      {{ novedadesMensaje }}
+    </p>
+  </form>
 </section>

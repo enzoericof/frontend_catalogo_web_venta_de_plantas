@@ -1,18 +1,21 @@
+import { CommonModule } from '@angular/common';
 import { DOCUMENT, Location } from '@angular/common';
 import { Component, ElementRef, Inject, OnInit, ViewChild } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
+import { NovedadesService } from '../../core/novedades.service';
 import { PlantaService } from '../../core/planta.service';
 
 @Component({
   selector: 'app-catalogo',
   standalone: true,
-  imports: [CommonModule, RouterModule],
+  imports: [CommonModule, FormsModule, RouterModule],
   templateUrl: './catalogo.component.html',
   styleUrls: ['./catalogo.component.css']
 })
 export class CatalogoComponent implements OnInit {
   @ViewChild('aboutSlider') aboutSlider?: ElementRef<HTMLDivElement>;
+  private readonly novedadesCooldownMs = 15000;
 
   plantas: any[] = [];
   plantasFiltradas: any[] = [];
@@ -20,6 +23,13 @@ export class CatalogoComponent implements OnInit {
   cargando = true;
   mostrarGrid = true;
   ordenSeleccionado = 'nombre-asc';
+  novedadesEmail = '';
+  novedadesWhatsapp = '';
+  novedadesHoney = '';
+  novedadesEnviando = false;
+  novedadesEnfriando = false;
+  novedadesEstado: 'ok' | 'error' | null = null;
+  novedadesMensaje = '';
   quienesSomosSlides = [
     {
       tone: 'terracotta-deep',
@@ -62,6 +72,7 @@ export class CatalogoComponent implements OnInit {
   constructor(
     @Inject(DOCUMENT) private document: Document,
     private location: Location,
+    private novedadesService: NovedadesService,
     private plantaService: PlantaService,
     private route: ActivatedRoute,
     private router: Router
@@ -158,5 +169,68 @@ export class CatalogoComponent implements OnInit {
 
   trackByPlanta(index: number, planta: any): number {
     return planta.id;
+  }
+
+  get novedadesButtonLabel(): string {
+    if (this.novedadesEnviando) {
+      return 'Enviando...';
+    }
+
+    if (this.novedadesEnfriando) {
+      return 'Espera unos segundos...';
+    }
+
+    return 'Quiero recibir novedades';
+  }
+
+  enviarNovedades(): void {
+    if (this.novedadesEnviando || this.novedadesEnfriando) {
+      return;
+    }
+
+    if (this.novedadesHoney.trim()) {
+      this.novedadesEstado = 'ok';
+      this.novedadesMensaje = 'Listo. Te tendremos en cuenta para las proximas novedades del vivero.';
+      this.novedadesEmail = '';
+      this.novedadesWhatsapp = '';
+      this.novedadesHoney = '';
+      this.activarCooldown();
+      return;
+    }
+
+    this.novedadesEnviando = true;
+    this.novedadesEstado = null;
+    this.novedadesMensaje = '';
+
+    this.novedadesService.registrar({
+      email: this.novedadesEmail,
+      whatsapp: this.novedadesWhatsapp
+    }).subscribe({
+      next: response => {
+        this.novedadesEstado = 'ok';
+        this.novedadesMensaje = response.mensaje;
+        this.novedadesEmail = '';
+        this.novedadesWhatsapp = '';
+        this.novedadesHoney = '';
+        this.novedadesEnviando = false;
+        this.activarCooldown();
+      },
+      error: error => {
+        this.novedadesEstado = 'error';
+        this.novedadesMensaje =
+          error?.error?.message ??
+          error?.error?.mensaje ??
+          'No pudimos registrar tus datos. Intentalo de nuevo.';
+        this.novedadesEnviando = false;
+      }
+    });
+  }
+
+  private activarCooldown(): void {
+    this.novedadesEnfriando = true;
+
+    this.document.defaultView?.setTimeout(() => {
+      this.novedadesEnfriando = false;
+    }, this.novedadesCooldownMs);
   }
 }
