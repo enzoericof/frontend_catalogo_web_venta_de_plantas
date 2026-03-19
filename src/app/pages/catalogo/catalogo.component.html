@@ -1,14 +1,55 @@
-
-
 <!-- HEADER -->
-<header class="header">
+<header class="header" id="top">
   <div class="container header-inner">
     <a class="logo" routerLink="/">VIVERO</a>
   </div>
 </header>
 
+<section class="hero">
+  <div class="hero-copy">
+    <p class="eyebrow">Bienvenidos</p>
+    <h1 class="hero-title">Plantas, macetas y detalles para darle vida a tu espacio</h1>
+    <p class="hero-text">
+      Explor&aacute; el cat&aacute;logo, encontr&aacute; la categor&iacute;a que mejor encaja con tu ambiente
+      y escribinos para consultar disponibilidad, precios y ofertas.
+    </p>
+    <div class="hero-meta">
+      <span>{{ plantasFiltradas.length || plantas.length }} opciones disponibles</span>
+      <span>Atenci&oacute;n directa por WhatsApp</span>
+    </div>
+  </div>
 
-<section class="filters">
+  <div class="hero-links" aria-label="Accesos r&aacute;pidos">
+    <a class="hero-card hero-card--terracotta-deep" href="#top">
+      <h2>Volver al inicio</h2>
+    </a>
+
+    <span class="hero-card hero-card--terracotta is-disabled" aria-disabled="true">
+      <h2>Informaciones varias, horarios y ubicaci&oacute;n</h2>
+    </span>
+
+    <a
+      class="hero-card hero-card--sand"
+      target="_blank"
+      href="https://wa.me/595991611061?text=Hola,%20quiero%20consultar%20por%20el%20cat%C3%A1logo">
+      <h2>Contacto</h2>
+    </a>
+
+    <a class="hero-card hero-card--forest" href="#catalogo">
+      <h2>Ver cat&aacute;logo</h2>
+    </a>
+
+    <span class="hero-card hero-card--olive is-disabled" aria-disabled="true">
+      <h2>Sobre nosotros</h2>
+    </span>
+
+    <span class="hero-card hero-card--moss is-disabled" aria-disabled="true">
+      <h2>Recibir novedades</h2>
+    </span>
+  </div>
+</section>
+
+<section class="filters" id="filtros">
   <button
     *ngFor="let c of categorias"
     [class.active]="c.value === categoriaSeleccionada"
@@ -18,14 +59,14 @@
 
   <div class="actions">
     <select #ordenSelect (change)="ordenar(ordenSelect.value)">
-      <option value="precio-asc">Precio más bajo primero</option>
-      <option value="precio-desc">Precio más alto primero</option>
+      <option value="precio-asc">Precio m&aacute;s bajo primero</option>
+      <option value="precio-desc">Precio m&aacute;s alto primero</option>
     </select>
   </div>
 </section>
-<section class="catalogo">
-  <div class="grid loaded">
 
+<section class="catalogo" id="catalogo">
+  <div class="grid loaded">
     <!-- SKELETON -->
     <ng-container *ngIf="cargando">
       <article class="card skeleton" *ngFor="let n of [1,2,3,4,5,6,7,8]">
@@ -45,17 +86,16 @@
         [routerLink]="['/plantas', planta.id]"
         [queryParams]="categoriaSeleccionada !== 'ALL'
           ? { categoria: categoriaSeleccionada }
-          : {}"
-      >
+          : {}">
         <div class="image-wrapper">
           <img
             [src]="planta.imagenPrincipal"
             alt="{{ planta.nombre }}"
-            loading="lazy"
-          />
+            loading="lazy" />
         </div>
 
         <div class="info">
+          <p class="card-kicker">Selecci&oacute;n del vivero</p>
           <h3>{{ planta.nombre }}</h3>
           <span class="precio">
             {{ planta.precio | number:'1.0-0':'es' }} Gs
@@ -63,6 +103,5 @@
         </div>
       </article>
     </ng-container>
-
   </div>
 </section>

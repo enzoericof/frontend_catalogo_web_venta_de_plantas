@@ -1,61 +1,60 @@
-<!-- ================= HEADER ================= -->
+<!-- HEADER -->
 <header class="header">
   <div class="container header-inner">
     <a class="logo" routerLink="/">VIVERO</a>
   </div>
 </header>
 
-<!-- ================= PAGE ================= -->
+<!-- PAGE -->
 <section class="detalle-page">
-
-  <!-- ===== BREADCRUMB ===== -->
+  <!-- BREADCRUMB -->
   <nav class="breadcrumb" *ngIf="planta">
-    <a routerLink="/">Catálogo</a>
+    <a routerLink="/">Cat&aacute;logo</a>
     <span>/</span>
     <strong>{{ planta.nombre }}</strong>
   </nav>
 
-  <!-- ===== CONTENIDO ===== -->
+  <!-- CONTENIDO -->
   <div class="detalle-grid" *ngIf="!cargando && planta">
+    <!-- GALERIA -->
+    <div class="galeria-card">
+      <div class="galeria">
+        <div class="imagen-wrap">
+          <button
+            class="nav-arrow left"
+            *ngIf="planta.imagenes.length > 1"
+            (click)="imagenAnterior()">
+            &#8249;
+          </button>
 
-    <!-- ===== GALERÍA ===== -->
-    <div class="galeria">
+          <img
+            class="imagen-principal"
+            [src]="imagenActiva"
+            [alt]="planta.nombre" />
 
-      <div class="imagen-wrap">
-        <button
-          class="nav-arrow left"
-          *ngIf="planta.imagenes.length > 1"
-          (click)="imagenAnterior()">
-          ‹
-        </button>
+          <button
+            class="nav-arrow right"
+            *ngIf="planta.imagenes.length > 1"
+            (click)="imagenSiguiente()">
+            &#8250;
+          </button>
+        </div>
 
-        <img
-          class="imagen-principal"
-          [src]="imagenActiva"
-          [alt]="planta.nombre" />
-
-        <button
-          class="nav-arrow right"
-          *ngIf="planta.imagenes.length > 1"
-          (click)="imagenSiguiente()">
-          ›
-        </button>
+        <div class="thumbs" *ngIf="planta.imagenes.length > 1">
+          <button
+            *ngFor="let img of planta.imagenes; trackBy: trackByIndex"
+            class="thumb"
+            [class.active]="imagenActiva === '/' + img"
+            (click)="cambiarImagen(img)">
+            <img [src]="'/' + img" [alt]="planta.nombre" />
+          </button>
+        </div>
       </div>
-
-      <div class="thumbs" *ngIf="planta.imagenes.length > 1">
-        <button
-          *ngFor="let img of planta.imagenes; trackBy: trackByIndex"
-          class="thumb"
-          [class.active]="imagenActiva === '/' + img"
-          (click)="cambiarImagen(img)">
-          <img [src]="'/' + img" />
-        </button>
-      </div>
-
     </div>
 
-    <!-- ===== INFO ===== -->
+    <!-- INFO -->
     <div class="detalle-info">
+      <p class="detalle-kicker">Selecci&oacute;n del vivero</p>
       <h1>{{ planta.nombre }}</h1>
 
       <p class="precio">
@@ -66,18 +65,21 @@
         {{ planta.descripcion }}
       </p>
 
+      <div class="detalle-notes">
+        <span>Presentaci&oacute;n inspirada en tonos tierra y oliva</span>
+        <span>Ideal para consultas r&aacute;pidas por WhatsApp</span>
+      </div>
+
       <a
         class="cta"
         target="_blank"
         [href]="'https://wa.me/595991611061?text=Hola, me interesa la planta ' + planta.nombre">
-        Solicitar cotización
+        Solicitar cotizaci&oacute;n
       </a>
     </div>
-
   </div>
 
   <div class="detalle-loading" *ngIf="cargando">
-    Cargando producto…
+    Cargando producto...
   </div>
-
 </section>

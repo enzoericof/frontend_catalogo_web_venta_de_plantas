@@ -1,11 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterModule, ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { PlantaService } from '../../core/planta.service';
-import { Router } from '@angular/router';
-
-
-
 
 @Component({
   selector: 'app-catalogo',
@@ -15,20 +11,16 @@ import { Router } from '@angular/router';
   styleUrls: ['./catalogo.component.css']
 })
 export class CatalogoComponent implements OnInit {
-
-  // ================= DATA =================
-
   plantas: any[] = [];
   plantasFiltradas: any[] = [];
   renderKey = 0;
   cargando = true;
   mostrarGrid = true;
 
-
   categorias = [
     { label: 'Todas', value: 'ALL' },
     { label: 'Cactus', value: 'Cactus y Suculentas' },
-    { label: 'Decoración', value: 'Decoración' },
+    { label: 'Decoraci\u00f3n', value: 'Decoraci\u00f3n' },
     { label: 'Florales', value: 'Florales' },
     { label: 'Macetas', value: 'Macetas' },
     { label: 'Exterior', value: 'Plantas para exterior' },
@@ -37,49 +29,38 @@ export class CatalogoComponent implements OnInit {
 
   categoriaSeleccionada = 'ALL';
 
-  // ================= INIT =================
-
-constructor(
-  private plantaService: PlantaService,
-  private route: ActivatedRoute,
-  private router: Router
-) {}
-
+  constructor(
+    private plantaService: PlantaService,
+    private route: ActivatedRoute,
+    private router: Router
+  ) {}
 
   ngOnInit(): void {
-
-    // 1️⃣ Escuchar categoría desde la URL
     this.route.queryParamMap.subscribe(params => {
       this.categoriaSeleccionada = params.get('categoria') ?? 'ALL';
       this.filtrar();
     });
 
-    // 2️⃣ Cargar todas las plantas
     this.plantaService.listar().subscribe({
-next: data => {
-  this.plantas = data;
-  this.filtrar();
-
-  // SOLO PARA PROBAR EL SKELETON
-this.cargando = false;
-
-},
-
-      error: () => this.cargando = false
+      next: data => {
+        this.plantas = data;
+        this.filtrar();
+        this.cargando = false;
+      },
+      error: () => {
+        this.cargando = false;
+      }
     });
   }
 
-  // ================= FILTROS =================
-
-seleccionarCategoria(valor: string): void {
-  this.router.navigate([], {
-    queryParams: {
-      categoria: valor === 'ALL' ? null : valor
-    },
-    queryParamsHandling: 'merge'
-  });
-}
-
+  seleccionarCategoria(valor: string): void {
+    this.router.navigate([], {
+      queryParams: {
+        categoria: valor === 'ALL' ? null : valor
+      },
+      queryParamsHandling: 'merge'
+    });
+  }
 
   private filtrar(): void {
     this.mostrarGrid = false;
@@ -92,13 +73,10 @@ seleccionarCategoria(valor: string): void {
       );
     }
 
-    // fuerza recreación real del DOM
     setTimeout(() => {
       this.mostrarGrid = true;
     });
   }
-
-
 
   ordenar(valor: string): void {
     const copia = [...this.plantasFiltradas];
@@ -113,8 +91,6 @@ seleccionarCategoria(valor: string): void {
 
     this.plantasFiltradas = copia;
   }
-
-  // ================= OPTIMIZACIÓN =================
 
   trackByPlanta(index: number, planta: any): number {
     return planta.id;
