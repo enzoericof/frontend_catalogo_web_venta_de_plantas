@@ -21,11 +21,11 @@
 
   <div class="hero-links" aria-label="Accesos r&aacute;pidos">
     <a class="hero-card hero-card--terracotta-deep" href="#top">
-      <h2>Volver al inicio</h2>
+      <h2>Inicio</h2>
     </a>
 
     <span class="hero-card hero-card--terracotta is-disabled" aria-disabled="true">
-      <h2>Informaciones varias, horarios y ubicaci&oacute;n</h2>
+      <h2>Informaciones varias</h2>
     </span>
 
     <a
@@ -49,59 +49,66 @@
   </div>
 </section>
 
-<section class="filters" id="filtros">
-  <button
-    *ngFor="let c of categorias"
-    [class.active]="c.value === categoriaSeleccionada"
-    (click)="seleccionarCategoria(c.value)">
-    {{ c.label }}
-  </button>
-
-  <div class="actions">
-    <select #ordenSelect (change)="ordenar(ordenSelect.value)">
-      <option value="precio-asc">Precio m&aacute;s bajo primero</option>
-      <option value="precio-desc">Precio m&aacute;s alto primero</option>
-    </select>
+<section class="catalogo-section" id="catalogo">
+  <div class="catalogo-heading">
+    <p class="catalogo-eyebrow">Cat&aacute;logo</p>
+    <h2 class="catalogo-title">Explor&aacute; la colecci&oacute;n disponible</h2>
   </div>
-</section>
 
-<section class="catalogo" id="catalogo">
-  <div class="grid loaded">
-    <!-- SKELETON -->
-    <ng-container *ngIf="cargando">
-      <article class="card skeleton" *ngFor="let n of [1,2,3,4,5,6,7,8]">
-        <div class="image-wrapper skeleton-box"></div>
-        <div class="info">
-          <div class="skeleton-line title"></div>
-          <div class="skeleton-line price"></div>
-        </div>
-      </article>
-    </ng-container>
+  <section class="filters" id="filtros">
+    <button
+      *ngFor="let c of categorias"
+      [class.active]="c.value === categoriaSeleccionada"
+      (click)="seleccionarCategoria(c.value)">
+      {{ c.label }}
+    </button>
 
-    <!-- CARDS REALES -->
-    <ng-container *ngIf="!cargando && mostrarGrid">
-      <article
-        class="card"
-        *ngFor="let planta of plantasFiltradas"
-        [routerLink]="['/plantas', planta.id]"
-        [queryParams]="categoriaSeleccionada !== 'ALL'
-          ? { categoria: categoriaSeleccionada }
-          : {}">
-        <div class="image-wrapper">
-          <img
-            [src]="planta.imagenPrincipal"
-            alt="{{ planta.nombre }}"
-            loading="lazy" />
-        </div>
+    <div class="actions">
+      <select #ordenSelect (change)="ordenar(ordenSelect.value)">
+        <option value="precio-asc">Precio m&aacute;s bajo primero</option>
+        <option value="precio-desc">Precio m&aacute;s alto primero</option>
+      </select>
+    </div>
+  </section>
 
-        <div class="info">
-          <p class="card-kicker">Selecci&oacute;n del vivero</p>
-          <h3>{{ planta.nombre }}</h3>
-          <span class="precio">
-            {{ planta.precio | number:'1.0-0':'es' }} Gs
-          </span>
-        </div>
-      </article>
-    </ng-container>
-  </div>
+  <section class="catalogo">
+    <div class="grid loaded">
+      <!-- SKELETON -->
+      <ng-container *ngIf="cargando">
+        <article class="card skeleton" *ngFor="let n of [1,2,3,4,5,6,7,8]">
+          <div class="image-wrapper skeleton-box"></div>
+          <div class="info">
+            <div class="skeleton-line title"></div>
+            <div class="skeleton-line price"></div>
+          </div>
+        </article>
+      </ng-container>
+
+      <!-- CARDS REALES -->
+      <ng-container *ngIf="!cargando && mostrarGrid">
+        <article
+          class="card"
+          *ngFor="let planta of plantasFiltradas"
+          [routerLink]="['/plantas', planta.id]"
+          [queryParams]="categoriaSeleccionada !== 'ALL'
+            ? { categoria: categoriaSeleccionada }
+            : {}">
+          <div class="image-wrapper">
+            <img
+              [src]="planta.imagenPrincipal"
+              alt="{{ planta.nombre }}"
+              loading="lazy" />
+          </div>
+
+          <div class="info">
+            <p class="card-kicker">Selecci&oacute;n del vivero</p>
+            <h3>{{ planta.nombre }}</h3>
+            <span class="precio">
+              {{ planta.precio | number:'1.0-0':'es' }} Gs
+            </span>
+          </div>
+        </article>
+      </ng-container>
+    </div>
+  </section>
 </section>
