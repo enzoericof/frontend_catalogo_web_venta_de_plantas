@@ -1,5 +1,5 @@
 import { DOCUMENT, Location } from '@angular/common';
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, ElementRef, Inject, OnInit, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { PlantaService } from '../../core/planta.service';
@@ -12,12 +12,40 @@ import { PlantaService } from '../../core/planta.service';
   styleUrls: ['./catalogo.component.css']
 })
 export class CatalogoComponent implements OnInit {
+  @ViewChild('aboutSlider') aboutSlider?: ElementRef<HTMLDivElement>;
+
   plantas: any[] = [];
   plantasFiltradas: any[] = [];
   renderKey = 0;
   cargando = true;
   mostrarGrid = true;
   ordenSeleccionado = 'nombre-asc';
+  quienesSomosSlides = [
+    {
+      tone: 'terracotta-deep',
+      eyebrow: 'Curaduría',
+      title: 'Selección pensada con criterio',
+      text: 'Elegimos plantas, macetas y detalles que se complementan entre sí para que cada rincón se sienta armónico.'
+    },
+    {
+      tone: 'terracotta',
+      eyebrow: 'Acompañamiento',
+      title: 'Atención cercana y simple',
+      text: 'Te orientamos por WhatsApp para disponibilidad, combinaciones y recomendaciones según tu espacio.'
+    },
+    {
+      tone: 'olive',
+      eyebrow: 'Logística',
+      title: 'Retiros y entregas coordinadas',
+      text: 'Organizamos cada pedido de forma directa para que recibas tus productos con claridad y sin vueltas.'
+    },
+    {
+      tone: 'moss',
+      eyebrow: 'Estilo',
+      title: 'Verde con calidez natural',
+      text: 'Buscamos una presentación serena, con tonos tierra y oliva, para que la experiencia se sienta cuidada.'
+    }
+  ];
 
   categorias = [
     { label: 'Todas', value: 'ALL' },
@@ -113,6 +141,19 @@ export class CatalogoComponent implements OnInit {
   scrollToTop(event?: Event): void {
     event?.preventDefault();
     this.document.defaultView?.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  scrollAboutSlider(direction: 'prev' | 'next'): void {
+    const slider = this.aboutSlider?.nativeElement;
+
+    if (!slider) {
+      return;
+    }
+
+    const distance = Math.round(slider.clientWidth * 0.78);
+    const left = direction === 'next' ? distance : -distance;
+
+    slider.scrollBy({ left, behavior: 'smooth' });
   }
 
   trackByPlanta(index: number, planta: any): number {

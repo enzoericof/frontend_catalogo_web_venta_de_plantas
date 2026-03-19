@@ -54,9 +54,9 @@
       <h2>Escribir por Whatsapp</h2>
     </a>
 
-    <span class="hero-card hero-card--olive is-disabled" aria-disabled="true">
+    <a class="hero-card hero-card--olive" href="#quienes-somos">
       <h2>Qui&eacute;nes somos</h2>
-    </span>
+    </a>
 
     <span class="hero-card hero-card--terracotta is-disabled" aria-disabled="true">
       <h2>Recibir novedades</h2>
@@ -123,4 +123,57 @@
       </ng-container>
     </div>
   </section>
+</section>
+
+<section class="about-section" id="quienes-somos">
+  <div class="about-heading">
+    <div>
+      <p class="catalogo-eyebrow">Qui&eacute;nes somos</p>
+      <h2 class="catalogo-title">Una forma m&aacute;s cercana de elegir tus plantas</h2>
+    </div>
+
+    <div class="about-actions" aria-label="Controles de Qui&eacute;nes somos">
+      <button type="button" class="about-nav" (click)="scrollAboutSlider('prev')">
+        &#8249;
+      </button>
+      <button type="button" class="about-nav" (click)="scrollAboutSlider('next')">
+        &#8250;
+      </button>
+    </div>
+  </div>
+
+  <div class="about-layout">
+    <div class="about-intro">
+      <div class="about-intro-mark" aria-hidden="true">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+
+      <p class="about-lead">
+        Somos un vivero pensado para acompa&ntilde;arte con una selecci&oacute;n simple,
+        est&eacute;tica y f&aacute;cil de consultar. Nuestro objetivo no es llenarte de opciones,
+        sino ayudarte a encontrar la indicada.
+      </p>
+
+      <div class="about-points">
+        <span>Asesoramiento directo</span>
+        <span>Selecci&oacute;n curada</span>
+        <span>Entregas coordinadas</span>
+      </div>
+    </div>
+
+    <div class="about-slider-shell">
+      <div class="about-slider" #aboutSlider>
+        <article
+          class="about-card"
+          *ngFor="let slide of quienesSomosSlides"
+          [ngClass]="'about-card--' + slide.tone">
+          <p class="about-card-eyebrow">{{ slide.eyebrow }}</p>
+          <h3>{{ slide.title }}</h3>
+          <p>{{ slide.text }}</p>
+        </article>
+      </div>
+    </div>
+  </div>
 </section>

@@ -9,7 +9,16 @@
 <section class="detalle-page">
   <!-- BREADCRUMB -->
   <nav class="breadcrumb" *ngIf="planta">
-    <a routerLink="/">Cat&aacute;logo</a>
+    <a routerLink="/" fragment="catalogo">Cat&aacute;logo</a>
+    <ng-container *ngIf="categoriaOrigen && categoriaOrigenLabel">
+      <span>/</span>
+      <a
+        routerLink="/"
+        fragment="catalogo"
+        [queryParams]="{ categoria: categoriaOrigen }">
+        {{ categoriaOrigenLabel }}
+      </a>
+    </ng-container>
     <span>/</span>
     <strong>{{ planta.nombre }}</strong>
   </nav>
