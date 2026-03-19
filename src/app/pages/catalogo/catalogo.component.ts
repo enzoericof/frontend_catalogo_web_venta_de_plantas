@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { DOCUMENT } from '@angular/common';
+import { Component, Inject, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { PlantaService } from '../../core/planta.service';
@@ -30,6 +31,7 @@ export class CatalogoComponent implements OnInit {
   categoriaSeleccionada = 'ALL';
 
   constructor(
+    @Inject(DOCUMENT) private document: Document,
     private plantaService: PlantaService,
     private route: ActivatedRoute,
     private router: Router
@@ -90,6 +92,11 @@ export class CatalogoComponent implements OnInit {
     }
 
     this.plantasFiltradas = copia;
+  }
+
+  scrollToTop(event?: Event): void {
+    event?.preventDefault();
+    this.document.defaultView?.scrollTo({ top: 0, behavior: 'smooth' });
   }
 
   trackByPlanta(index: number, planta: any): number {

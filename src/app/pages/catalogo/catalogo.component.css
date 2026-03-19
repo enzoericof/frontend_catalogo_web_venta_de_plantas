@@ -182,6 +182,7 @@
 }
 
 .filters {
+  max-width: 1336px;
   margin-top: 10px;
   margin-bottom: 12px;
   padding-top: 18px;
