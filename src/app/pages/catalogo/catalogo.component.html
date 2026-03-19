@@ -13,7 +13,7 @@
         <h1 class="hero-title">Plantas, macetas y detalles para darle vida a tu espacio</h1>
         <p class="hero-text">
           Explor&aacute; nuestro cat&aacute;logo y encontr&aacute; la planta ideal para tu espacio.
-          Te asesoramos por WhatsApp en disponibilidad, precios y recomendaciones.
+          Te asesoramos por WhatsApp en disponibilidad y recomendaciones.
         </p>
         <div class="hero-meta">
           <span>Atenci&oacute;n directa por WhatsApp</span>
@@ -80,8 +80,8 @@
 
     <div class="actions">
       <select #ordenSelect (change)="ordenar(ordenSelect.value)">
-        <option value="precio-asc">Precio m&aacute;s bajo primero</option>
-        <option value="precio-desc">Precio m&aacute;s alto primero</option>
+        <option value="nombre-asc">Nombre A-Z</option>
+        <option value="nombre-desc">Nombre Z-A</option>
       </select>
     </div>
   </section>
@@ -118,9 +118,6 @@
           <div class="info">
             <p class="card-kicker">Selecci&oacute;n del vivero</p>
             <h3>{{ planta.nombre }}</h3>
-            <span class="precio">
-              {{ planta.precio | number:'1.0-0':'es' }} Gs
-            </span>
           </div>
         </article>
       </ng-container>

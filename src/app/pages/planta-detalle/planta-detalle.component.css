@@ -200,18 +200,6 @@
   line-height: 0.98;
 }
 
-.precio {
-  display: inline-flex;
-  margin: 18px 0 0;
-  padding: 10px 16px;
-  border: 1px solid rgba(102, 113, 43, 0.24);
-  border-radius: 999px;
-  background: rgba(102, 113, 43, 0.1);
-  color: var(--forest);
-  font-size: 1.05rem;
-  font-weight: 700;
-}
-
 .descripcion {
   margin: 22px 0 0;
   color: var(--muted);

@@ -505,18 +505,6 @@ select {
   line-height: 1.2;
 }
 
-.precio {
-  display: inline-flex;
-  align-items: center;
-  padding: 7px 12px;
-  border: 1px solid rgba(102, 113, 43, 0.22);
-  border-radius: 999px;
-  background: rgba(102, 113, 43, 0.1);
-  color: var(--forest);
-  font-size: 13px;
-  font-weight: 700;
-}
-
 html {
   overflow-y: scroll;
 }

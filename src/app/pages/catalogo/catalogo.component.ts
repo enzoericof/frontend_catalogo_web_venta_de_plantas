@@ -1,4 +1,4 @@
-import { DOCUMENT } from '@angular/common';
+import { DOCUMENT, Location } from '@angular/common';
 import { Component, Inject, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
@@ -17,6 +17,7 @@ export class CatalogoComponent implements OnInit {
   renderKey = 0;
   cargando = true;
   mostrarGrid = true;
+  ordenSeleccionado = 'nombre-asc';
 
   categorias = [
     { label: 'Todas', value: 'ALL' },
@@ -32,6 +33,7 @@ export class CatalogoComponent implements OnInit {
 
   constructor(
     @Inject(DOCUMENT) private document: Document,
+    private location: Location,
     private plantaService: PlantaService,
     private route: ActivatedRoute,
     private router: Router
@@ -56,17 +58,27 @@ export class CatalogoComponent implements OnInit {
   }
 
   seleccionarCategoria(valor: string): void {
-    this.router.navigate([], {
+    this.categoriaSeleccionada = valor;
+    this.filtrar();
+
+    const fragmentoActual =
+      this.route.snapshot.fragment ??
+      this.document.defaultView?.location.hash.replace('#', '') ??
+      null;
+
+    const urlTree = this.router.createUrlTree([], {
+      relativeTo: this.route,
       queryParams: {
         categoria: valor === 'ALL' ? null : valor
       },
-      queryParamsHandling: 'merge'
+      queryParamsHandling: 'merge',
+      fragment: fragmentoActual || undefined
     });
+
+    this.location.replaceState(this.router.serializeUrl(urlTree));
   }
 
   private filtrar(): void {
-    this.mostrarGrid = false;
-
     if (this.categoriaSeleccionada === 'ALL') {
       this.plantasFiltradas = [...this.plantas];
     } else {
@@ -75,20 +87,24 @@ export class CatalogoComponent implements OnInit {
       );
     }
 
-    setTimeout(() => {
-      this.mostrarGrid = true;
-    });
+    this.aplicarOrden();
+    this.mostrarGrid = true;
   }
 
   ordenar(valor: string): void {
+    this.ordenSeleccionado = valor;
+    this.aplicarOrden();
+  }
+
+  private aplicarOrden(): void {
     const copia = [...this.plantasFiltradas];
 
-    if (valor === 'precio-asc') {
-      copia.sort((a, b) => a.precio - b.precio);
+    if (this.ordenSeleccionado === 'nombre-asc') {
+      copia.sort((a, b) => a.nombre.localeCompare(b.nombre, 'es'));
     }
 
-    if (valor === 'precio-desc') {
-      copia.sort((a, b) => b.precio - a.precio);
+    if (this.ordenSeleccionado === 'nombre-desc') {
+      copia.sort((a, b) => b.nombre.localeCompare(a.nombre, 'es'));
     }
 
     this.plantasFiltradas = copia;
