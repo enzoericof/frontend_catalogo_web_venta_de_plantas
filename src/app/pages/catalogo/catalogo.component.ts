@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { DOCUMENT, Location } from '@angular/common';
-import { Component, ElementRef, Inject, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, HostListener, Inject, OnInit, ViewChild } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { NovedadesService } from '../../core/novedades.service';
@@ -19,6 +19,7 @@ export class CatalogoComponent implements OnInit {
 
   plantas: any[] = [];
   plantasFiltradas: any[] = [];
+  scrollProgress = 0;
   renderKey = 0;
   cargando = true;
   mostrarGrid = true;
@@ -79,6 +80,8 @@ export class CatalogoComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    this.actualizarProgresoScroll();
+
     this.route.queryParamMap.subscribe(params => {
       this.categoriaSeleccionada = params.get('categoria') ?? 'ALL';
       this.filtrar();
@@ -152,6 +155,28 @@ export class CatalogoComponent implements OnInit {
   scrollToTop(event?: Event): void {
     event?.preventDefault();
     this.document.defaultView?.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  @HostListener('window:scroll')
+  @HostListener('window:resize')
+  actualizarProgresoScroll(): void {
+    const view = this.document.defaultView;
+    const root = this.document.documentElement;
+
+    if (!view || !root) {
+      this.scrollProgress = 0;
+      return;
+    }
+
+    const maxScroll = root.scrollHeight - view.innerHeight;
+
+    if (maxScroll <= 0) {
+      this.scrollProgress = 0;
+      return;
+    }
+
+    const progress = (view.scrollY / maxScroll) * 100;
+    this.scrollProgress = Math.max(0, Math.min(100, progress));
   }
 
   scrollAboutSlider(direction: 'prev' | 'next'): void {

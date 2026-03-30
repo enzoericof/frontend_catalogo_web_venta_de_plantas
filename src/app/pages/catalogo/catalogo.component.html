@@ -3,6 +3,9 @@
   <div class="container header-inner">
     <a class="logo" href="#top" (click)="scrollToTop($event)">VIVERO</a>
   </div>
+  <div class="header-progress" aria-hidden="true">
+    <span class="header-progress-bar" [style.width.%]="scrollProgress"></span>
+  </div>
 </header>
 
 <section class="hero">

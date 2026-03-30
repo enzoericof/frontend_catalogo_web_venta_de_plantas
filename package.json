@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve",
+    "start": "set CHOKIDAR_USEPOLLING=1&& set CHOKIDAR_INTERVAL=1000&& ng serve --poll 1000 --hmr false --prebundle false",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
