@@ -27,7 +27,7 @@ body {
   margin: 0;
   min-height: 100vh;
   color: var(--ink);
-  font-family: "Aptos", "Segoe UI", sans-serif;
+  font-family: "Segoe UI", Arial, sans-serif;
   background:
     radial-gradient(circle at top left, rgba(200, 141, 95, 0.18), transparent 28%),
     radial-gradient(circle at top right, rgba(102, 113, 43, 0.12), transparent 24%),
@@ -53,5 +53,5 @@ h2,
 h3,
 .logo,
 .hero-title {
-  font-family: "Iowan Old Style", "Palatino Linotype", "Book Antiqua", Georgia, serif;
+  font-family: "Segoe UI", Arial, sans-serif;
 }

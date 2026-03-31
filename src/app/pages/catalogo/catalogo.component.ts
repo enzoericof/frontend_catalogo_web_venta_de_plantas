@@ -215,7 +215,7 @@ export class CatalogoComponent implements OnInit {
 
     if (this.novedadesHoney.trim()) {
       this.novedadesEstado = 'ok';
-      this.novedadesMensaje = 'Listo. Te tendremos en cuenta para las proximas novedades del vivero.';
+      this.novedadesMensaje = 'Listo. Te tendremos en cuenta para las próximas novedades del vivero.';
       this.novedadesEmail = '';
       this.novedadesWhatsapp = '';
       this.novedadesHoney = '';
@@ -245,7 +245,7 @@ export class CatalogoComponent implements OnInit {
         this.novedadesMensaje =
           error?.error?.message ??
           error?.error?.mensaje ??
-          'No pudimos registrar tus datos. Intentalo de nuevo.';
+          'No pudimos registrar tus datos. Inténtalo de nuevo.';
         this.novedadesEnviando = false;
       }
     });

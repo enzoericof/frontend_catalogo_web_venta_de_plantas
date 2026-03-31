@@ -53,7 +53,8 @@
 
 .hero,
 .catalogo-section,
-.about-section {
+.about-section,
+.site-footer {
   max-width: 1400px;
   margin-left: auto;
   margin-right: auto;
@@ -65,7 +66,8 @@
 .hero,
 .catalogo-section,
 .about-section,
-.newsletter-section {
+.newsletter-section,
+.site-footer {
   -webkit-user-select: none;
   user-select: none;
 }
@@ -405,6 +407,66 @@ option {
   display: grid;
   grid-template-columns: minmax(0, 1.1fr) minmax(360px, 0.9fr);
   gap: 28px;
+}
+
+.site-footer {
+  padding-bottom: 42px;
+}
+
+.site-footer-inner {
+  display: grid;
+  grid-template-columns: minmax(0, 1.1fr) minmax(220px, 0.85fr) minmax(220px, 0.95fr);
+  gap: 22px;
+  padding: 26px 28px;
+  border: 1px solid var(--line);
+  border-radius: 28px;
+  background: rgba(255, 251, 245, 0.76);
+  box-shadow: var(--shadow);
+}
+
+.site-footer-brand,
+.site-footer-links,
+.site-footer-meta {
+  display: flex;
+  flex-direction: column;
+}
+
+.site-footer-brand {
+  gap: 12px;
+}
+
+.site-footer-logo {
+  color: var(--forest);
+  text-decoration: none;
+  font-size: 1.45rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+}
+
+.site-footer-brand p,
+.site-footer-meta span {
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.96rem;
+  line-height: 1.65;
+}
+
+.site-footer-links {
+  gap: 12px;
+}
+
+.site-footer-links a {
+  color: var(--ink);
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.site-footer-links a:hover {
+  color: var(--terracotta-deep);
+}
+
+.site-footer-meta {
+  gap: 10px;
 }
 
 .newsletter-copy,
@@ -1412,7 +1474,8 @@ html {
   .hero,
   .catalogo-section,
   .about-section,
-  .newsletter-section {
+  .newsletter-section,
+  .site-footer {
     padding-left: 18px;
     padding-right: 18px;
   }
@@ -1452,6 +1515,10 @@ html {
     gap: 18px;
   }
 
+  .site-footer {
+    padding-bottom: 32px;
+  }
+
   .about-section::before {
     inset-left: 18px;
     inset-right: 18px;
@@ -1465,6 +1532,11 @@ html {
   .newsletter-copy,
   .newsletter-form {
     padding: 28px 22px;
+  }
+
+  .site-footer-inner {
+    grid-template-columns: 1fr;
+    padding: 24px 22px;
   }
 
   .hero-links {
