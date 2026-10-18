@@ -33,7 +33,7 @@ El frontend se puede consultar sin el backend. Los servicios Java existentes se 
 
 La comparación visual está en `design-qa.md`, con capturas de escritorio y celular en `design-reference/`. La compilación conserva la advertencia original de estilos a 4 kB por componente; no supera el límite de error de 8 kB.
 
-Antes de publicar: confirmar el enlace de Instagram, contacto principal, dominio, prerenderizado y metadatos sociales con URLs absolutas. El resultado actual sigue siendo una vista previa local.
+Pendiente de contenido: confirmar el enlace de Instagram y, cuando corresponda, conectar un dominio propio. Los contactos actuales provienen de los flyers de la marca.
 
 ## Estructura de la tienda
 
@@ -48,7 +48,7 @@ Antes de publicar: confirmar el enlace de Instagram, contacto principal, dominio
 
 ## Adaptación a pantalla
 
-El anuncio principal utiliza el ancho y el alto del viewport (`svh`), con espacio flexible entre texto e imagen. La foto conserva el archivo completo con `object-fit: contain`. En pantallas horizontales de poco alto pasa a dos columnas. En pantallas pequeñas se permite desplazamiento vertical para conservar tamaños legibles.
+El anuncio principal utiliza el ancho y el alto del viewport (`svh`), con espacio flexible entre texto e imagen. La versión elegida muestra la foto del vivero en un encuadre horizontal debajo del título, con `object-fit: cover` y altura adaptable. En pantallas pequeñas se permite desplazamiento vertical para conservar tamaños legibles.
 
 Revisado en 320×568, 390×844, 768×1024, 1366×768, 1920×1080, 844×390 y 640×360. No se observó desbordamiento horizontal. Las capturas están en `design-reference/responsive-mobile.png`, `responsive-1366.png` y `responsive-horizontal.png`.
 
@@ -56,6 +56,8 @@ Revisado en 320×568, 390×844, 768×1024, 1366×768, 1920×1080, 844×390 y 640
 
 Configuración para el proyecto Terramía Ornamentales:
 
+- Proyecto: `terramia-ornamentales`.
+- Dirección: https://terramia-ornamentales.pages.dev/.
 - Proveedor: Cloudflare Pages, integración con GitHub.
 - Repositorio: `enzoericof/frontend_catalogo_web_venta_de_plantas`.
 - Rama inicial de publicación: `codex/terramia-catalogo`.
