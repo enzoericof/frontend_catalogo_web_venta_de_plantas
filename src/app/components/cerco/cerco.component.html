@@ -1,0 +1,56 @@
+<section class="planting" id="plantacion" aria-labelledby="titulo-plantacion">
+  <div class="planting-copy">
+    <h2 id="titulo-plantacion">¿Cuántas plantas<br />necesitás?</h2>
+    <p>Medí los metros de tu cerco.<br />La separación recomendada es de 20 a 30 cm.</p>
+    <span
+      >Cálculo para una fila, con una planta en cada extremo. Confirmamos la cantidad al preparar tu
+      presupuesto.</span
+    >
+  </div>
+  <div class="calculator">
+    <label for="metros">Largo del cerco</label>
+    <div class="metres-field">
+      <input
+        id="metros"
+        type="number"
+        min="0.1"
+        max="10000"
+        step="any"
+        inputmode="decimal"
+        [value]="metros()"
+        (input)="actualizarMetros($event)"
+        aria-describedby="ayuda-metros"
+      /><span>metros</span>
+    </div>
+    <fieldset>
+      <legend>Separación entre plantas</legend>
+      <div class="spacing-options">
+        @for (cm of [20, 25, 30]; track cm) {
+          <label [class.active]="separacion() === cm"
+            ><input
+              type="radio"
+              name="separacion"
+              [value]="cm"
+              [checked]="separacion() === cm"
+              (change)="separacion.set(cm)"
+            /><span>{{ cm }} cm</span></label
+          >
+        }
+      </div>
+    </fieldset>
+    <div class="estimate" aria-live="polite" aria-atomic="true">
+      @if (cantidad() > 0) {
+        <strong>{{ cantidad() | number: '1.0-0' }}</strong
+        ><span>plantas<br />aproximadamente</span>
+      } @else {
+        <p>Ingresá un largo válido para calcular.</p>
+      }
+    </div>
+    <p id="ayuda-metros" class="estimate-note">Cantidad orientativa. Presupuesto sin costo.</p>
+    @if (cantidad() > 0) {
+      <a class="button" [href]="presupuesto()" target="_blank" rel="noopener noreferrer"
+        >Consultar por esta cantidad</a
+      >
+    }
+  </div>
+</section>

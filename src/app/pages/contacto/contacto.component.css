@@ -1,0 +1,69 @@
+:host {
+  display: block;
+}
+.contact {
+  max-width: 1024px;
+  margin: auto;
+  padding: 75px 24px 90px;
+  text-align: center;
+}
+.contact h1 {
+  font-size: 52px;
+  font-weight: 600;
+  line-height: 1.1;
+  letter-spacing: -2px;
+  margin: 0;
+}
+.contact header p {
+  font-size: 22px;
+  color: var(--muted);
+  margin: 20px 0 28px;
+}
+.contact-information {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 45px;
+  text-align: left;
+  border-top: 1px solid var(--line);
+  margin-top: 65px;
+  padding-top: 40px;
+}
+.contact-information h2 {
+  font-size: 21px;
+  font-weight: 600;
+  letter-spacing: -0.5px;
+  margin: 0 0 20px;
+}
+.contact-information p {
+  font-size: 14px;
+  line-height: 1.8;
+  color: var(--muted);
+  margin: 0 0 20px;
+}
+.contact-information a {
+  display: block;
+  color: var(--green);
+  font-size: 15px;
+  text-decoration: none;
+  margin-top: 14px;
+}
+.contact-information a:hover {
+  text-decoration: underline;
+}
+@media (max-width: 700px) {
+  .contact {
+    padding: 45px 24px 60px;
+  }
+  .contact h1 {
+    font-size: 39px;
+  }
+  .contact header p {
+    font-size: 18px;
+  }
+  .contact-information {
+    grid-template-columns: 1fr;
+    gap: 35px;
+    margin-top: 45px;
+    padding-top: 30px;
+  }
+}

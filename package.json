@@ -7,6 +7,7 @@
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
+    "check:catalogo": "node --experimental-strip-types scripts/check-catalogo.mjs",
     "serve:ssr:catalogo-plantas": "node dist/catalogo-plantas/server/server.mjs"
   },
   "prettier": {

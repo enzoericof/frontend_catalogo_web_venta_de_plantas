@@ -42,3 +42,9 @@ __screenshots__/
 # System files
 .DS_Store
 Thumbs.db
+
+# Referencias de trabajo y descargas locales; no son parte del sitio.
+/design-reference/
+/design-qa.md
+/.wrangler/
+/terramia-pages.zip

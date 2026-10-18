@@ -1,0 +1,365 @@
+:host {
+  display: block;
+}
+a {
+  color: inherit;
+  text-decoration: none;
+}
+.product-hero {
+  background: var(--soft);
+  text-align: center;
+  padding: 72px 24px 25px;
+}
+.hero-copy h1 {
+  font-size: 64px;
+  font-weight: 600;
+  line-height: 1.08;
+  letter-spacing: -2.8px;
+  margin: 0;
+}
+.hero-subtitle {
+  font-size: 29px;
+  letter-spacing: -0.8px;
+  margin: 13px 0 0;
+}
+.hero-note {
+  font-size: 19px;
+  color: var(--muted);
+  margin: 17px 0 0;
+}
+.hero-actions {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 28px;
+  margin-top: 23px;
+}
+.button {
+  display: inline-block;
+  border-radius: 30px;
+  background: var(--green);
+  color: #fff;
+  font-size: 16px;
+  line-height: 24px;
+  padding: 11px 23px;
+  transition: background 0.2s;
+}
+.button:hover {
+  background: #375f1e;
+}
+.text-link {
+  color: var(--green);
+  font-size: 17px;
+}
+.text-link:hover {
+  text-decoration: underline;
+}
+.hero-media {
+  max-width: 1000px;
+  margin: 50px auto 0;
+}
+.photo-button {
+  display: block;
+  width: 100%;
+  padding: 0;
+  border: 0;
+  background: none;
+  cursor: zoom-in;
+}
+.hero-photo {
+  display: block;
+  width: 100%;
+  height: 410px;
+  object-fit: cover;
+  object-position: center 66%;
+  border-radius: 24px;
+}
+.hero-photo.vivero {
+  object-position: center 58%;
+}
+.gallery-controls {
+  display: flex;
+  justify-content: center;
+  gap: 25px;
+  margin-top: 15px;
+}
+.gallery-controls button {
+  border: 0;
+  border-bottom: 2px solid transparent;
+  padding: 8px 0;
+  background: none;
+  color: var(--muted);
+  font-size: 12px;
+  cursor: pointer;
+}
+.gallery-controls .selected {
+  border-color: var(--green);
+  color: var(--ink);
+}
+.facts {
+  max-width: 980px;
+  margin: auto;
+  padding: 50px 24px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  text-align: center;
+  gap: 20px;
+}
+.facts span {
+  display: block;
+  font-size: 12px;
+  color: var(--muted);
+  margin-bottom: 10px;
+}
+.facts strong {
+  font-size: 21px;
+  font-weight: 600;
+  letter-spacing: -0.5px;
+}
+.growing {
+  padding: 70px 24px;
+  background: var(--soft);
+  text-align: center;
+}
+h2 {
+  font-size: 43px;
+  line-height: 1.12;
+  font-weight: 600;
+  letter-spacing: -1.5px;
+  margin: 0;
+}
+.section-intro {
+  font-size: 18px;
+  line-height: 1.5;
+  color: var(--muted);
+  max-width: 640px;
+  margin: 20px auto 36px;
+}
+.growing-grid {
+  max-width: 1000px;
+  margin: auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+  text-align: left;
+}
+.growing figure {
+  margin: 0;
+  min-width: 0;
+}
+.growing img {
+  width: 100%;
+  height: 440px;
+  object-fit: cover;
+  object-position: center 65%;
+  display: block;
+  border-radius: 20px;
+}
+.growing figcaption {
+  font-size: 14px;
+  line-height: 1.6;
+  margin-top: 16px;
+  color: var(--muted);
+}
+.growing figcaption strong {
+  color: var(--ink);
+}
+.field-notes {
+  max-width: 900px;
+  margin: auto;
+  padding: 80px 24px;
+}
+.notes-heading {
+  text-align: center;
+  margin-bottom: 42px;
+}
+.notes-heading p {
+  color: var(--muted);
+  font-size: 16px;
+  margin: 17px 0;
+}
+.notes-list details {
+  border-bottom: 1px solid var(--line);
+}
+.notes-list summary {
+  cursor: pointer;
+  font-weight: 500;
+  font-size: 18px;
+  padding: 23px 0;
+  list-style-position: inside;
+}
+.notes-list p {
+  font-size: 16px;
+  line-height: 1.7;
+  color: var(--muted);
+  margin: 0 0 25px;
+  max-width: 760px;
+}
+.photo-dialog {
+  width: min(95vw, 1000px);
+  max-height: 95dvh;
+  padding: 20px;
+  border: 0;
+  border-radius: 20px;
+  background: white;
+}
+.photo-dialog::backdrop {
+  background: #000b;
+}
+.dialog-close {
+  display: block;
+  margin: 0 0 15px auto;
+  background: var(--soft);
+  border: 0;
+  border-radius: 20px;
+  padding: 10px 20px;
+  cursor: pointer;
+}
+.photo-dialog img {
+  display: block;
+  max-width: 100%;
+  max-height: 75dvh;
+  width: auto;
+  height: auto;
+  margin: auto;
+  object-fit: contain;
+}
+.photo-dialog p {
+  text-align: center;
+  font-size: 12px;
+  color: var(--muted);
+}
+@media (min-width: 1500px) {
+  .hero-photo {
+    height: 450px;
+  }
+  .hero-media {
+    max-width: 1100px;
+  }
+}
+@media (max-width: 700px) {
+  .product-hero {
+    padding: 50px 20px 20px;
+  }
+  .hero-copy h1 {
+    font-size: 43px;
+    letter-spacing: -1.8px;
+    max-width: 370px;
+    margin: auto;
+  }
+  .hero-subtitle {
+    font-size: 25px;
+    margin-top: 12px;
+  }
+  .hero-note {
+    font-size: 16px;
+    line-height: 1.5;
+    max-width: 280px;
+    margin: 16px auto 0;
+  }
+  .hero-actions {
+    gap: 20px;
+    flex-wrap: wrap;
+    margin-top: 22px;
+  }
+  .button {
+    font-size: 14px;
+    padding: 10px 19px;
+  }
+  .text-link {
+    font-size: 14px;
+  }
+  .hero-media {
+    margin-top: 35px;
+  }
+  .hero-photo {
+    height: 330px;
+    border-radius: 18px;
+  }
+  .facts {
+    padding: 32px 20px;
+    gap: 15px;
+  }
+  .facts strong {
+    font-size: 17px;
+  }
+  .facts span {
+    font-size: 10px;
+    line-height: 1.5;
+  }
+  h2 {
+    font-size: 34px;
+    letter-spacing: -1px;
+  }
+  .growing {
+    padding: 50px 20px;
+  }
+  .section-intro {
+    font-size: 16px;
+  }
+  .growing-grid {
+    gap: 18px;
+  }
+  .growing img {
+    height: 290px;
+    border-radius: 16px;
+  }
+  .growing figcaption {
+    font-size: 12px;
+  }
+  .field-notes {
+    padding: 55px 24px;
+  }
+  .notes-heading {
+    margin-bottom: 23px;
+  }
+  .notes-list summary {
+    font-size: 16px;
+  }
+  .notes-list p {
+    font-size: 14px;
+  }
+}
+@media (max-width: 400px) {
+  .hero-copy h1 {
+    font-size: 38px;
+  }
+  .hero-photo {
+    height: 290px;
+  }
+  .facts {
+    gap: 10px;
+  }
+  .facts strong {
+    font-size: 15px;
+  }
+  .growing-grid {
+    grid-template-columns: 1fr;
+  }
+  .growing img {
+    height: 360px;
+  }
+}
+
+.breadcrumb {
+  font-size: 12px;
+  color: var(--muted);
+  margin: -35px 0 35px;
+}
+.breadcrumb a {
+  color: var(--green);
+}
+.not-found {
+  text-align: center;
+  padding: 100px 24px;
+}
+.not-found h1 {
+  font-size: 32px;
+  font-weight: 500;
+  margin: 0 0 30px;
+}
+@media (max-width: 700px) {
+  .breadcrumb {
+    margin: -20px 0 25px;
+  }
+}

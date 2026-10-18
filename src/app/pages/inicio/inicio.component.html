@@ -1,0 +1,46 @@
+@for (anuncio of anuncios; track anuncio.id; let first = $first) {
+  <section
+    class="announcement"
+    [class.featured]="first && anuncio.tipo === 'producto'"
+    [class.store-announcement]="anuncio.tipo === 'tienda'"
+    [attr.aria-labelledby]="anuncio.id"
+  >
+    <div class="announcement-copy">
+      @if (first) {
+        <h1 [id]="anuncio.id">{{ anuncio.titulo }}</h1>
+      } @else {
+        <h2 [id]="anuncio.id">{{ anuncio.titulo }}</h2>
+      }
+      <p class="subtitle">{{ anuncio.subtitulo }}</p>
+      <p class="note">{{ anuncio.nota }}</p>
+      <div class="actions">
+        @if (anuncio.tipo === 'producto') {
+          <a class="button" [routerLink]="['/plantas', anuncio.productoId]">Ver producto</a
+          ><a class="text-link" routerLink="/catalogo">Ver catálogo</a>
+        } @else {
+          <a class="button" routerLink="/catalogo">Ver catálogo</a
+          ><a class="text-link" routerLink="/contacto">Contactar a Terramía</a>
+        }
+      </div>
+    </div>
+    <a
+      class="announcement-media"
+      [class.hero-landscape]="anuncio.tipo === 'producto'"
+      [routerLink]="anuncio.tipo === 'producto' ? ['/plantas', anuncio.productoId] : ['/catalogo']"
+      [attr.aria-label]="
+        anuncio.tipo === 'producto'
+          ? 'Ver producto: ' + anuncio.titulo
+          : 'Ver el catálogo de Terramía'
+      "
+    >
+      <img
+        [src]="anuncio.imagen"
+        [alt]="anuncio.alt"
+        width="1200"
+        height="1600"
+        [attr.fetchpriority]="first ? 'high' : 'auto'"
+        [loading]="first ? 'eager' : 'lazy'"
+      />
+    </a>
+  </section>
+}
