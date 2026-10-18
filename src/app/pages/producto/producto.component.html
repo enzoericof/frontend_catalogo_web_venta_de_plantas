@@ -1,0 +1,113 @@
+@if (producto(); as p) {
+  <section class="product-hero" id="producto" aria-labelledby="nombre-producto">
+    <nav class="breadcrumb" aria-label="Ubicación">
+      <a routerLink="/catalogo">Catálogo</a><span aria-hidden="true"> / </span
+      ><span>{{ p.nombre }}</span>
+    </nav>
+    <div class="hero-copy">
+      <h1 id="nombre-producto">{{ p.nombre }}</h1>
+      <p class="hero-subtitle">{{ p.subtitulo }}</p>
+      <p class="hero-note">{{ p.nombreBotanico }}</p>
+      <div class="hero-actions">
+        <a class="button" [href]="consulta()" target="_blank" rel="noopener noreferrer"
+          >Consultar presupuesto</a
+        >
+        <a class="text-link" [routerLink]="[]" fragment="plantacion">Calcular cantidad</a>
+      </div>
+    </div>
+    <div class="hero-media">
+      <button
+        type="button"
+        class="photo-button"
+        (click)="abrirFoto()"
+        aria-label="Ampliar fotografía del producto"
+      >
+        <img
+          class="hero-photo"
+          [class.vivero]="foto().encuadre === 'vivero'"
+          [src]="foto().archivo"
+          [alt]="foto().descripcion"
+          fetchpriority="high"
+          width="1200"
+          height="1600"
+        />
+      </button>
+      <div class="gallery-controls" aria-label="Fotografías del producto">
+        @for (foto of p.fotos; track foto.archivo; let i = $index) {
+          <button
+            type="button"
+            [class.selected]="fotoActiva() === i"
+            [attr.aria-pressed]="fotoActiva() === i"
+            (click)="fotoActiva.set(i)"
+          >
+            {{ foto.etiqueta }}
+          </button>
+        }
+      </div>
+    </div>
+  </section>
+  <section class="facts" aria-label="Datos del producto">
+    <div>
+      <span>Separación recomendada</span
+      ><strong>{{ p.separacionCm.minima }} a {{ p.separacionCm.maxima }} cm</strong>
+    </div>
+    <div>
+      <span>Ubicación</span><strong>{{ p.ubicacion }}</strong>
+    </div>
+    <div>
+      <span>Temporada de producción</span><strong>{{ p.produccion }}</strong>
+    </div>
+  </section>
+  <section class="growing" aria-labelledby="titulo-crecimiento">
+    <h2 id="titulo-crecimiento">{{ p.contexto.titulo }}</h2>
+    <p class="section-intro">{{ p.contexto.descripcion }}</p>
+    <div class="growing-grid">
+      @for (foto of p.contexto.fotos; track foto.archivo) {
+        <figure>
+          <img
+            [src]="foto.archivo"
+            [alt]="foto.descripcion"
+            width="960"
+            height="1280"
+            loading="lazy"
+          />
+          <figcaption>
+            <strong>{{ foto.titulo }}</strong> {{ foto.pie }}
+          </figcaption>
+        </figure>
+      }
+    </div>
+  </section>
+  @if (p.permiteCalcularCerco) {
+    <app-cerco [producto]="p" />
+  }
+  <section class="field-notes" id="cuidados" aria-labelledby="titulo-cuidados">
+    <div class="notes-heading">
+      <h2 id="titulo-cuidados">Conocé la planta.</h2>
+      <p>{{ p.nombreBotanico }}</p>
+    </div>
+    <div class="notes-list">
+      @for (cuidado of p.cuidados; track cuidado.titulo; let first = $first) {
+        <details [open]="first">
+          <summary>{{ cuidado.titulo }}</summary>
+          <p>{{ cuidado.texto }}</p>
+        </details>
+      }
+    </div>
+  </section>
+  <dialog
+    #visor
+    class="photo-dialog"
+    (click)="cerrarFondo($event)"
+    [attr.aria-label]="'Fotografía ampliada de ' + p.nombre"
+  >
+    <button type="button" class="dialog-close" (click)="cerrarFoto()" autofocus>Cerrar</button>
+    <img [src]="foto().archivo" [alt]="foto().descripcion" />
+    <p>{{ foto().descripcion }}</p>
+  </dialog>
+} @else {
+  <section class="not-found">
+    <h1>No encontramos ese producto.</h1>
+    <a class="button" routerLink="/catalogo">Volver al catálogo</a>
+  </section>
+}

@@ -1,0 +1,175 @@
+:host {
+  display: block;
+}
+.planting {
+  max-width: 1000px;
+  padding: 85px 24px;
+  margin: auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12%;
+  align-items: center;
+}
+.planting h2 {
+  font-size: 44px;
+  line-height: 1.1;
+  letter-spacing: -1.5px;
+  font-weight: 600;
+  margin: 0;
+}
+.planting-copy > p {
+  font-size: 18px;
+  line-height: 1.6;
+  color: var(--muted);
+  margin: 25px 0;
+}
+.planting-copy > span {
+  display: block;
+  max-width: 330px;
+  font-size: 12px;
+  line-height: 1.7;
+  color: var(--muted);
+}
+.calculator {
+  padding: 30px;
+  background: var(--soft);
+  border-radius: 24px;
+}
+.calculator > label,
+legend {
+  font-size: 13px;
+  color: var(--muted);
+}
+.metres-field {
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid var(--line);
+  padding-bottom: 9px;
+  margin-top: 8px;
+}
+.metres-field input {
+  background: transparent;
+  border: 0;
+  width: 100%;
+  min-width: 0;
+  font-size: 40px;
+  font-weight: 500;
+  color: var(--ink);
+  appearance: textfield;
+}
+.metres-field input::-webkit-inner-spin-button {
+  appearance: none;
+}
+.metres-field > span {
+  font-size: 14px;
+  color: var(--muted);
+}
+fieldset {
+  border: 0;
+  padding: 0;
+  margin: 22px 0 0;
+}
+legend {
+  padding: 0;
+}
+.spacing-options {
+  display: flex;
+  gap: 8px;
+  margin-top: 12px;
+}
+.spacing-options label {
+  flex: 1;
+  text-align: center;
+  position: relative;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  padding: 12px 3px;
+  cursor: pointer;
+  font-size: 13px;
+}
+.spacing-options input {
+  position: absolute;
+  opacity: 0;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  cursor: pointer;
+}
+.spacing-options .active {
+  color: var(--green);
+  border: 2px solid var(--green);
+  padding: 11px 2px;
+  background: white;
+}
+.spacing-options label:focus-within {
+  outline: 3px solid var(--green);
+  outline-offset: 3px;
+}
+.estimate {
+  display: flex;
+  align-items: center;
+  gap: 17px;
+  min-height: 110px;
+}
+.estimate strong {
+  font-size: 65px;
+  line-height: 1;
+  font-weight: 600;
+  letter-spacing: -3px;
+}
+.estimate > span {
+  font-size: 13px;
+  line-height: 1.6;
+  color: var(--muted);
+}
+.estimate > p,
+.estimate-note {
+  font-size: 12px;
+  line-height: 1.6;
+  color: var(--muted);
+}
+.estimate-note {
+  margin: 0 0 20px;
+}
+.button {
+  display: block;
+  text-align: center;
+  background: var(--green);
+  color: white;
+  border-radius: 24px;
+  font-size: 14px;
+  padding: 13px 15px;
+  text-decoration: none;
+}
+.button:hover {
+  background: #375f1e;
+}
+@media (max-width: 700px) {
+  .planting {
+    grid-template-columns: 1fr;
+    padding: 55px 24px;
+    gap: 30px;
+  }
+  .planting-copy {
+    text-align: center;
+  }
+  .planting h2 {
+    font-size: 34px;
+    letter-spacing: -1px;
+  }
+  .planting-copy > p {
+    font-size: 16px;
+    margin: 18px 0;
+  }
+  .planting-copy > span {
+    margin: auto;
+    max-width: 350px;
+  }
+  .calculator {
+    max-width: 420px;
+    width: 100%;
+    margin: auto;
+    padding: 26px;
+  }
+}

@@ -1,0 +1,41 @@
+<section class="contact" aria-labelledby="titulo-contacto">
+  <header>
+    <h1 id="titulo-contacto">Contactá a Terramía.</h1>
+    <p>Consultas, pedidos y entregas.</p>
+  </header>
+  <a class="button" [href]="consulta" target="_blank" rel="noopener noreferrer"
+    >Escribir por WhatsApp</a
+  >
+  <div class="contact-information">
+    <section>
+      <h2>WhatsApp</h2>
+      @for (contacto of contactos; track contacto.numero) {
+        <a
+          [href]="
+            'https://wa.me/' +
+            contacto.numero +
+            '?text=Hola%2C%20Terram%C3%ADa.%20Quisiera%20hacer%20una%20consulta%20sobre%20la%20tienda.'
+          "
+          target="_blank"
+          rel="noopener noreferrer"
+          >{{ contacto.etiqueta }}</a
+        >
+      }
+    </section>
+    <section>
+      <h2>Entregas</h2>
+      <p>
+        Distribuimos a todo el país. Indicanos tu localidad y la cantidad que necesitás para
+        consultar el presupuesto y coordinar la entrega.
+      </p>
+    </section>
+    <section>
+      <h2>Presupuesto sin costo</h2>
+      <p>
+        Podés consultar por una compra en cantidad o entrar a la ficha de un producto para enviarnos
+        una consulta específica.
+      </p>
+      <a class="text-link" routerLink="/catalogo">Ver catálogo</a>
+    </section>
+  </div>
+</section>

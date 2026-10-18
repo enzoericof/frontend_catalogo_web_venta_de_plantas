@@ -1,1 +1,36 @@
-<router-outlet></router-outlet>
+<a class="skip-link" [routerLink]="[]" fragment="contenido">Ir al contenido</a>
+<header class="site-header">
+  <nav aria-label="Navegación principal">
+    <a class="brand" routerLink="/" aria-label="Terramía Ornamentales, inicio"
+      ><img
+        src="assets/terramia/logo-terramia.png"
+        alt="Terramía PC Ornamentales"
+        width="256"
+        height="220"
+    /></a>
+    <a
+      routerLink="/"
+      routerLinkActive="active"
+      [routerLinkActiveOptions]="{ exact: true }"
+      ariaCurrentWhenActive="page"
+      >Inicio</a
+    >
+    <a routerLink="/catalogo" routerLinkActive="active" ariaCurrentWhenActive="page">Catálogo</a>
+    <a routerLink="/contacto" routerLinkActive="active" ariaCurrentWhenActive="page">Contacto</a>
+  </nav>
+</header>
+<main id="contenido" tabindex="-1"><router-outlet /></main>
+<footer>
+  <a class="footer-brand" routerLink="/">terramía <small>Ornamentales · Paraguay</small></a>
+  <nav aria-label="Navegación del pie de página">
+    <a routerLink="/">Inicio</a><a routerLink="/catalogo">Catálogo</a
+    ><a routerLink="/contacto">Contacto</a>
+  </nav>
+  <div class="footer-contacts">
+    @for (contacto of contactos; track contacto.numero) {
+      <a [href]="'https://wa.me/' + contacto.numero" target="_blank" rel="noopener noreferrer">{{
+        contacto.etiqueta
+      }}</a>
+    }
+  </div>
+</footer>
