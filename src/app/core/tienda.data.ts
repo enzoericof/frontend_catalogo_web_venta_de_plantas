@@ -12,22 +12,16 @@ export const consultaTienda =
 // Cada fotografía puede tener una composición específica para móvil y escritorio.
 export const FOTOS_HERO = [
   {
-    escritorio: 'assets/terramia/sanson-vivero.jpg',
-    movil: 'assets/terramia/sanson-vivero-vertical.jpg',
-    alt: 'Hileras de Sansón de campo en macetas en el vivero de Terramía',
-    etiqueta: 'En vivero',
+    escritorio: 'assets/terramia/cerco-horizontal.jpg',
+    movil: 'assets/terramia/cerco-vertical.jpg',
+    alt: 'Cerco vivo de Sansón de campo junto a un jardín arbolado',
+    etiqueta: 'Cerco vivo',
   },
   {
-    escritorio: 'assets/terramia/sanson-cerco.jpg',
+    escritorio: 'assets/terramia/cerco-jardin.jpg',
     movil: 'assets/terramia/sanson-cerco-formado.jpg',
     alt: 'Cerco vivo de Sansón de campo delimitando un jardín',
     etiqueta: 'Cerco formado',
-  },
-  {
-    escritorio: 'assets/terramia/sanson-hojas.jpg',
-    movil: 'assets/terramia/sanson-hojas.jpg',
-    alt: 'Detalle de las hojas de Sansón de campo con gotas de agua',
-    etiqueta: 'Hojas',
   },
 ] as const;
 

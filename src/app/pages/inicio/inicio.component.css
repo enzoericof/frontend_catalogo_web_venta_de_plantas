@@ -113,25 +113,33 @@
   }
 }
 .featured {
-  padding: clamp(24px, 5svh, 56px) clamp(16px, 3vw, 32px) clamp(20px, 3svh, 32px);
+  height: calc(100svh - var(--header-height));
+  display: grid;
+  grid-template-rows: auto minmax(0, 1fr);
+  gap: clamp(12px, 2svh, 24px);
+  padding: clamp(12px, 3svh, 32px) clamp(16px, 3vw, 32px) 12px;
 }
 .featured h1 {
-  font-size: clamp(38px, 5vw, 64px);
+  font-size: clamp(28px, min(5vw, 7svh), 64px);
 }
 .featured .subtitle {
-  font-size: clamp(23px, 2.3vw, 29px);
+  font-size: clamp(20px, min(2.3vw, 4svh), 29px);
+  margin-top: clamp(5px, 1svh, 12px);
 }
 .featured .note {
-  font-size: clamp(15px, 1.5vw, 19px);
-  margin-top: clamp(12px, 2svh, 17px);
+  font-size: clamp(14px, 1.5vw, 19px);
+  margin-top: clamp(6px, 1svh, 12px);
 }
 .featured .actions {
-  margin-top: clamp(16px, 2.5svh, 23px);
+  margin-top: clamp(10px, 1.8svh, 20px);
 }
 .hero-gallery {
+  display: grid;
+  grid-template-rows: minmax(0, 1fr) auto auto;
+  min-height: 0;
   width: 100%;
   max-width: 1100px;
-  margin: clamp(24px, 4svh, 40px) auto 0;
+  margin: 0 auto;
 }
 .hero-track {
   display: flex;
@@ -139,7 +147,8 @@
   scroll-snap-type: x mandatory;
   overscroll-behavior-x: contain;
   scrollbar-width: none;
-  border-radius: clamp(14px, 2vw, 24px);
+  min-height: 0;
+  height: 100%;
 }
 .hero-track::-webkit-scrollbar {
   display: none;
@@ -150,25 +159,32 @@
   min-width: 0;
   scroll-snap-align: start;
   scroll-snap-stop: always;
-  aspect-ratio: 2.65;
+  height: 100%;
 }
-.hero-slide picture,
-.hero-slide img {
-  display: block;
+.hero-slide picture {
+  display: flex;
+  align-items: center;
+  justify-content: center;
   width: 100%;
   height: 100%;
   min-height: 0;
 }
 .hero-slide img {
-  object-fit: cover;
-  object-position: center 60%;
+  display: block;
+  width: auto;
+  height: auto;
+  max-width: 100%;
+  max-height: 100%;
+  border-radius: 14px;
+  object-fit: contain;
+  object-position: center;
 }
 .gallery-controls {
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 18px;
-  margin-top: 12px;
+  margin-top: 8px;
 }
 .gallery-arrow,
 .gallery-dot {
@@ -215,16 +231,10 @@
 }
 @media (max-width: 700px) {
   .featured {
-    padding: 28px 16px 24px;
+    padding: clamp(12px, 2svh, 24px) 16px 12px;
   }
-  .hero-gallery {
-    margin-top: 26px;
-  }
-  .hero-slide {
-    aspect-ratio: 3 / 4;
-  }
-  .hero-slide img {
-    object-position: center;
+  .featured h1 {
+    font-size: clamp(28px, min(9vw, 5svh), 43px);
   }
 }
 @media (max-width: 360px) {
@@ -233,5 +243,10 @@
   }
   .featured .actions {
     gap: 14px;
+  }
+}
+@media (max-height: 600px) {
+  .featured .note {
+    display: none;
   }
 }

@@ -48,7 +48,7 @@ Pendiente de contenido: confirmar el enlace de Instagram y, cuando corresponda, 
 
 ## Adaptación a pantalla
 
-El anuncio principal muestra un carrusel de tres fotografías debajo del título. Hasta 700 px usa fotos verticales (3:4); por encima, encuadres horizontales. `<picture>` selecciona el archivo apropiado sin detectar el dispositivo por su navegador. La altura depende del contenido y no deja espacio vacío para completar el viewport.
+El anuncio principal ocupa el alto visible menos el header, y reparte el espacio entre texto, foto y controles. El carrusel muestra dos escenas: hasta 700 px selecciona tomas verticales diferentes; en escritorio utiliza las fotos horizontal y cuadrada del cerco descargadas el 25/10/2026. `<picture>` selecciona los archivos por ancho de pantalla. Las imágenes conservan su proporción y se muestran completas con `object-fit: contain`, limitadas por el ancho y el alto disponibles. En pantallas bajas se oculta la nota complementaria para conservar espacio para la fotografía.
 
 El carrusel permite deslizamiento táctil nativo con scroll snap, flechas, selección directa y teclado (izquierda, derecha, inicio y fin). No cambia automáticamente y respeta la preferencia de movimiento reducido. `FOTOS_HERO` en `src/app/core/tienda.data.ts` contiene los archivos de móvil/escritorio, etiquetas y textos alternativos.
 
