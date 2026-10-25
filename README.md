@@ -48,7 +48,9 @@ Pendiente de contenido: confirmar el enlace de Instagram y, cuando corresponda, 
 
 ## Adaptación a pantalla
 
-El anuncio principal utiliza el ancho y el alto del viewport (`svh`), con espacio flexible entre texto e imagen. La versión elegida muestra la foto del vivero en un encuadre horizontal debajo del título, con `object-fit: cover` y altura adaptable. En pantallas pequeñas se permite desplazamiento vertical para conservar tamaños legibles.
+El anuncio principal muestra un carrusel de tres fotografías debajo del título. Hasta 700 px usa fotos verticales (3:4); por encima, encuadres horizontales. `<picture>` selecciona el archivo apropiado sin detectar el dispositivo por su navegador. La altura depende del contenido y no deja espacio vacío para completar el viewport.
+
+El carrusel permite deslizamiento táctil nativo con scroll snap, flechas, selección directa y teclado (izquierda, derecha, inicio y fin). No cambia automáticamente y respeta la preferencia de movimiento reducido. `FOTOS_HERO` en `src/app/core/tienda.data.ts` contiene los archivos de móvil/escritorio, etiquetas y textos alternativos.
 
 Revisado en 320×568, 390×844, 768×1024, 1366×768, 1920×1080, 844×390 y 640×360. No se observó desbordamiento horizontal. Las capturas están en `design-reference/responsive-mobile.png`, `responsive-1366.png` y `responsive-horizontal.png`.
 

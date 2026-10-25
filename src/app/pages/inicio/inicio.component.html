@@ -23,6 +23,49 @@
         }
       </div>
     </div>
+    @if (first && anuncio.tipo === 'producto') {
+      <div class="hero-gallery" role="region" aria-roledescription="carrusel" aria-label="Fotos de Sansón de campo">
+        <div
+          #heroTrack
+          id="fotos-destacadas"
+          class="hero-track"
+          tabindex="0"
+          aria-label="Fotografías. Deslizá o usá las flechas del teclado para cambiar de foto."
+          (scroll)="actualizarFoto()"
+          (keydown)="manejarTecla($event)"
+        >
+          @for (foto of fotos; track foto.etiqueta; let i = $index) {
+            <a class="hero-slide" [routerLink]="['/plantas', anuncio.productoId]"
+              [attr.tabindex]="fotoActiva() === i ? 0 : -1"
+              [attr.aria-label]="foto.etiqueta + '. Ver Sansón de campo'">
+              <picture>
+                <source media="(max-width: 700px)" [srcset]="foto.movil" />
+                <img [src]="foto.escritorio" [alt]="foto.alt" width="1200" height="1600"
+                  [loading]="i === 0 ? 'eager' : 'lazy'"
+                  [attr.fetchpriority]="i === 0 ? 'high' : 'auto'" draggable="false" />
+              </picture>
+            </a>
+          }
+        </div>
+        <div class="gallery-controls">
+          <button type="button" class="gallery-arrow" aria-label="Foto anterior"
+            aria-controls="fotos-destacadas" [disabled]="fotoActiva() === 0"
+            (click)="irAFoto(fotoActiva() - 1)"><span aria-hidden="true">←</span></button>
+          <div class="gallery-dots" aria-label="Elegir fotografía">
+            @for (foto of fotos; track foto.etiqueta; let i = $index) {
+              <button type="button" class="gallery-dot" [class.selected]="fotoActiva() === i"
+                [attr.aria-label]="'Foto ' + (i + 1) + ': ' + foto.etiqueta"
+                [attr.aria-current]="fotoActiva() === i ? 'true' : null"
+                aria-controls="fotos-destacadas" (click)="irAFoto(i)"><span></span></button>
+            }
+          </div>
+          <button type="button" class="gallery-arrow" aria-label="Foto siguiente"
+            aria-controls="fotos-destacadas" [disabled]="fotoActiva() === fotos.length - 1"
+            (click)="irAFoto(fotoActiva() + 1)"><span aria-hidden="true">→</span></button>
+        </div>
+        <p class="gallery-caption" aria-live="polite" aria-atomic="true">{{ fotoActiva() + 1 }} / {{ fotos.length }} · {{ fotos[fotoActiva()].etiqueta }}</p>
+      </div>
+    } @else {
     <a
       class="announcement-media"
       [class.hero-landscape]="anuncio.tipo === 'producto'"
@@ -42,5 +85,6 @@
         [loading]="first ? 'eager' : 'lazy'"
       />
     </a>
+    }
   </section>
 }
